@@ -21,13 +21,14 @@ async function readConfiguration<T>(file: string, throwError = true): Promise<T 
 
 /**
  * 使用应用程序配置读取器
+ * @description - 读取环境变量值有两种写法[import.meta.env.BASE_URL/process.env.VITE_BASE_URL]
  * @returns - 应用程序配置信息
  */
 export default async function useConfigReader(): Promise<IAppConfiguration> {
   const settings = <ISystemSetting>(
-    await readConfiguration<ISystemSetting>(`${process.env.BASE_URL}config/settings.json`)
+    await readConfiguration<ISystemSetting>(`${import.meta.env.BASE_URL}config/settings.json`)
   )
-  const oidc = await readConfiguration<IOidc>(`${process.env.BASE_URL}config/oidc.json`, settings.isNeedLogin)
+  const oidc = await readConfiguration<IOidc>(`${process.env.VITE_BASE_URL}config/oidc.json`, settings.isNeedLogin)
 
   return {
     oidc: oidc,
