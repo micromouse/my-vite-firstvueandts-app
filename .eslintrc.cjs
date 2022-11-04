@@ -25,5 +25,14 @@ module.exports = {
     }
   },
   plugins: ['vue', '@typescript-eslint', 'prettier'],
-  rules: {}
+  rules: {
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'vue/multi-word-component-names': [
+      'error',
+      {
+        ignores: ['Layout', 'Sidebar', 'Logo', 'Navbar', 'Hamburger', 'menu1', 'menu11', 'menu2']
+      }
+    ]
+  }
 }

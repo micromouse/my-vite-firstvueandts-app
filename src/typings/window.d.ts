@@ -7,5 +7,5 @@ declare interface Window {
   /**
    * @description - 应用程序配置信息
    */
-  appConfig?: IAppConfiguration
+  appConfig: IAppConfiguration
 }

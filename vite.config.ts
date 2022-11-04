@@ -1,6 +1,8 @@
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import eslintPlugin from 'vite-plugin-eslint'
+import { resolve } from 'path'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -10,8 +12,20 @@ export default defineConfig(({ mode }) => {
       vue(),
       eslintPlugin({
         include: ['src/**/*.ts', 'src/**/*.d.ts', 'src/**/*.tsx', 'src/**/*.vue']
+      }),
+      createSvgIconsPlugin({
+        // 指定需要缓存的图标文件夹
+        iconDirs: [resolve(process.cwd(), 'src/assets/images/svg')],
+        // 指定symbolId格式
+        symbolId: 'icon-[dir]-[name]'
       })
     ],
+    resolve: {
+      alias: {
+        '@': resolve(__dirname, './src'),
+        path: 'path-browserify'
+      }
+    },
     server: {
       host: envConfig.VITE_HOST,
       port: parseInt(envConfig.VITE_PORT),

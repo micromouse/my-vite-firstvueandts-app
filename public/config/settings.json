@@ -10,7 +10,7 @@
   "showTopNavbar": true,
   "mainNeedAnimation": true,
   "isNeedNprogress": true,
-  "isNeedLogin": true,
+  "isNeedLogin": false,
   "permissionMode": "roles",
   "openProdMock": true,
   "errorLog": ["prod"],

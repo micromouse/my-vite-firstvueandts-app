@@ -12,7 +12,7 @@
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
     "noEmit": true,
-    "types": ["vite/client", "node"],
+    "types": ["vite/client", "node", "vite-plugin-svg-icons/client"],
     "paths": {
       "@/*": ["./src/*"]
     }
