@@ -50,8 +50,8 @@ export default defineComponent({
 .svg-icon {
   width: 1em;
   height: 1em;
-  position: relative;
+  vertical-align: -0.15em;
+  overflow: hidden;
   fill: currentColor;
-  vertical-align: -2px;
 }
 </style>

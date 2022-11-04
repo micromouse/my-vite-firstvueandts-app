@@ -23,6 +23,7 @@ async function readConfiguration<T>(file: string, throwError = true): Promise<T 
  */
 export default async function useConfigReader(): Promise<IAppConfiguration> {
   //读环境变量有两种方式[process.env.VITE_BASE_URL/import.meta.env.BASE_URL]
+  console.log('process.env', process.env)
   const settings = await readConfiguration<ISystemSetting>(`${process.env.VITE_BASE_URL}config/settings.json`)
   const oidc = await readConfiguration<IOidc>(`${import.meta.env.BASE_URL}config/oidc.json`, settings?.isNeedLogin)
 
