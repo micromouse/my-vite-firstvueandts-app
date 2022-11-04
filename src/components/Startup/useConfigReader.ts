@@ -6,7 +6,7 @@ import { ISystemSetting } from '@/typings/common'
  * @param throwError - 读取失败是否抛出异常(默认抛出异常)
  * @returns - 配置对象,读取错误返回相应状态码和文本
  */
-async function readConfiguration<T>(file: string, throwError = true): Promise<T | null> {
+async function readConfiguration<T>(file: string, throwError = true): Promise<T> {
   let data = <T>null
 
   const response = await fetch(file, { method: 'get' })

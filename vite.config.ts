@@ -1,11 +1,17 @@
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import eslintPlugin from 'vite-plugin-eslint'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const envConfig = loadEnv(mode, './')
   return {
-    plugins: [vue()],
+    plugins: [
+      vue(),
+      eslintPlugin({
+        include: ['src/**/*.ts', 'src/**/*.d.ts', 'src/**/*.tsx', 'src/**/*.vue']
+      })
+    ],
     server: {
       host: envConfig.VITE_HOST,
       port: parseInt(envConfig.VITE_PORT),
