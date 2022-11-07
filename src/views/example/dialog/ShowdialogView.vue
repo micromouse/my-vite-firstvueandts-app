@@ -53,7 +53,9 @@ export default defineComponent({
 
     //抛出异常
     const throwException = () => {
-      document.getElementById('cc').innerHTML = 'cc'
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const hello: any = {}
+      console.log('hello.say', hello.say('error message'))
       throw '抛出一个异常'
     }
 
