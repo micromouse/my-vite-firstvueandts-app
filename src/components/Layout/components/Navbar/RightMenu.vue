@@ -18,12 +18,10 @@
   <el-dropdown trigger="click" size="default" class="dropdowncontainer">
     <div class="avatar-wrapper">
       <svg-icon iconClass="user" className="user-avatar" />
+      <span class="username">{{ employeeName }}</span>
       <CaretBottom class="caret-buttom" />
     </div>
     <template #dropdown>
-      <el-dropdown-item divided>
-        <span>Welcome: {{ employeeName }}</span>
-      </el-dropdown-item>
       <el-dropdown-menu>
         <router-link to="/">
           <el-dropdown-item>Home</el-dropdown-item>
@@ -103,6 +101,10 @@ export default defineComponent({
     width: 20px;
     height: 20px;
     border-radius: 10px;
+  }
+
+  .username {
+    margin-left: 10px;
   }
 
   .el-icon-caret-bottom {
