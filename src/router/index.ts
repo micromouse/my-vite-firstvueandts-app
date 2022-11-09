@@ -94,6 +94,12 @@ export const routes: RouteRecordRawExtendCollection = [
         path: 'logined-user',
         component: () => import('@/views/example/logineduser/LoginedUserView.vue'),
         meta: { title: 'Logined-User' }
+      },
+      {
+        name: 'Table',
+        path: 'table',
+        component: () => import('@/views/example/table/TableView.vue'),
+        meta: { title: 'Table-Demo' }
       }
     ]
   },
