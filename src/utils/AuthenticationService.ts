@@ -19,7 +19,7 @@ export default class AuthenticationService {
         throw 'Oidc配置不能为空'
       }
 
-      this._userManager = new UserManager({
+      this._userManager = new UserManager(<UserManagerSettings>{
         userStore: configuration.useStore ? new WebStorageStateStore({ store: window.localStorage }) : null,
         authority: configuration.authority,
         client_id: configuration.client_id,
@@ -32,7 +32,7 @@ export default class AuthenticationService {
         scope: configuration.scope,
         post_logout_redirect_uri: configuration.post_logout_redirect_uri,
         loadUserInfo: configuration.loadUserInfo
-      } as UserManagerSettings)
+      })
     }
   }
   //#endregion
