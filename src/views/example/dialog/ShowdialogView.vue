@@ -2,6 +2,7 @@
   <div>
     <h2>显示对话框演示</h2>
     <hr />
+    <el-button v-on:click="toAbout()" size="default">to AboutView</el-button>
     <el-button v-on:click="showDialog1()" size="default">显示对话框1</el-button>
     <el-button @click="showDialog3()" size="default">显示对话框3</el-button>
     <el-button @click="throwException()" size="default">未处理异常</el-button>
@@ -17,6 +18,7 @@ import Dialog1Buttons from './Dialog1Buttons.vue'
 import useGlobalProperties from '@/hooks/useGlobalProperties'
 import { IGDialogShow } from '@/typings/GDialog'
 import Dialog3View from './Dialog3View.vue'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   components: {
@@ -24,8 +26,21 @@ export default defineComponent({
     ElDivider
   },
   setup() {
+    const router = useRouter()
     const globalProperties = useGlobalProperties()
     const dialog1Return = ref('')
+
+    /**
+     * 跳转到AboutView视图
+     * Discarded invalid param(s) "paramsContent" when navigating.
+     * https://github.com/vuejs/router/blob/main/packages/router/CHANGELOG.md#414-2022-08-22
+     * */
+    const toAbout = () => {
+      router.push({
+        name: 'about',
+        params: { paramsContent: '这是从ShowdialogView.vue传出的参数内容' }
+      })
+    }
 
     //显示对话框1
     const showDialog1 = () => {
@@ -61,6 +76,7 @@ export default defineComponent({
 
     //数据
     return {
+      toAbout,
       showDialog1,
       showDialog3,
       dialog1Return,

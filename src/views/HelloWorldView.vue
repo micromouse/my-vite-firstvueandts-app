@@ -1,9 +1,13 @@
 <template>
   <div>
-    <h1>{{ msg }}</h1>
-
+    <h1>
+      {{ paramsContent }}
+      <br />
+      {{ id }}
+    </h1>
+    <br />
     <div class="card">
-      <button type="button" @click="count++">count is {{ count }}</button>
+      <el-button type="primary" size="default" @click="count++">count is {{ count }}</el-button>
       <p>
         Edit
         <code>components/HelloWorld.vue</code>
@@ -26,13 +30,21 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import { ElButton } from 'element-plus'
 
 export default defineComponent({
   props: {
-    msg: {
+    id: {
+      type: String,
+      default: '没有传入id值'
+    },
+    paramsContent: {
       type: String,
       default: '路由没有传入消息'
     }
+  },
+  components: {
+    ElButton
   },
   setup() {
     const count = ref(0)

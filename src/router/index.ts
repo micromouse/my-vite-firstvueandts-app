@@ -14,7 +14,15 @@ export const routes: RouteRecordRawExtendCollection = [
       {
         name: 'home',
         path: 'index',
-        component: () => import('@/views/HelloWorldView.vue')
+        component: () => import('@/views/HelloWorldView.vue'),
+        props(_route) {
+          return {
+            //Discarded invalid param(s) "paramsContent" when navigating.
+            //https://github.com/vuejs/router/blob/main/packages/router/CHANGELOG.md#414-2022-08-22
+            paramsContent: _route.params.content,
+            id: _route.query.id
+          }
+        }
       }
     ]
   },
