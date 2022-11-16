@@ -1,6 +1,10 @@
 <template>
   <div class="about">
-    <h2>{{ paramsContent }}</h2>
+    <h2>
+      {{ paramsContent }}
+      <br />
+      {{ id }}
+    </h2>
     <h1>This is an about page</h1>
     <el-button>I am elbutton</el-button>
     <hr />
@@ -25,6 +29,10 @@ export default defineComponent({
     ElDatePicker
   },
   props: {
+    id: {
+      type: String,
+      default: '路由没有传入id值'
+    },
     paramsContent: {
       type: String,
       default: '路由没有传入消息'
@@ -33,6 +41,7 @@ export default defineComponent({
   setup() {
     var selectedTime = ref<Date>()
     console.log('route.params.paramsContent', useRoute().params.paramsContent)
+    console.log('route.query.id', useRoute().query.id)
     return {
       appStore: useAppStore(),
       selectedTime

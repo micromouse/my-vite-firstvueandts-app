@@ -2,7 +2,8 @@
   <div>
     <h2>显示对话框演示</h2>
     <hr />
-    <el-button v-on:click="toAbout()" size="default">to AboutView</el-button>
+    <el-button v-on:click="toAboutByParams()" size="default">to AboutView By Params</el-button>
+    <el-button v-on:click="toAboutByQuery()" size="default">to AboutView By Query</el-button>
     <el-button v-on:click="showDialog1()" size="default">显示对话框1</el-button>
     <el-button @click="showDialog3()" size="default">显示对话框3</el-button>
     <el-button @click="throwException()" size="default">未处理异常</el-button>
@@ -35,10 +36,18 @@ export default defineComponent({
      * Discarded invalid param(s) "paramsContent" when navigating.
      * https://github.com/vuejs/router/blob/main/packages/router/CHANGELOG.md#414-2022-08-22
      * */
-    const toAbout = () => {
+    const toAboutByParams = () => {
       router.push({
         name: 'about',
         params: { paramsContent: '这是从ShowdialogView.vue传出的参数内容' }
+      })
+    }
+
+    //使用Query跳转到About
+    const toAboutByQuery = () => {
+      router.push({
+        path: '/about/index',
+        query: { id: '这是从ShowdialogView.vue传出的id值' }
       })
     }
 
@@ -76,7 +85,8 @@ export default defineComponent({
 
     //数据
     return {
-      toAbout,
+      toAboutByParams,
+      toAboutByQuery,
       showDialog1,
       showDialog3,
       dialog1Return,
