@@ -19,9 +19,9 @@
         <template #default="scope">
           <el-image
             class="table-td-thumb"
-            :src="scope.row.thumb"
+            :src="scope.row.thumb ?? getAssetsImage(scope.row.localThumb)"
             :z-index="10"
-            :preview-src-list="[scope.row.thumb]"
+            :preview-src-list="[scope.row.thumb ?? getAssetsImage(scope.row.localThumb)]"
             preview-teleported
           />
         </template>
@@ -72,16 +72,7 @@ import {
 import { Delete, Edit, Plus, Search } from '@element-plus/icons-vue'
 import useGlobalProperties from '@/hooks/useGlobalProperties'
 import { AxiosInstance } from 'axios'
-
-//表格项信息
-interface ITableItem {
-  id: number
-  name: string
-  money: string
-  state: string
-  date: string
-  address: string
-}
+import { ITableItemUserInfo } from '@/typings/table'
 
 //定义TableView组件
 export default defineComponent({
@@ -98,7 +89,7 @@ export default defineComponent({
   },
   setup() {
     const globalProperties = useGlobalProperties()
-    const datas = ref<ITableItem[]>([])
+    const datas = ref<ITableItemUserInfo[]>([])
     const pageTotal = ref(0)
     const query = reactive({ name: '', address: '', pageIndex: 1, pageSize: 2 })
 
@@ -131,11 +122,15 @@ export default defineComponent({
     }
 
     //编辑用户信息行
-    const handleEdit = (index: number, row: ITableItem) => {
+    const handleEdit = (index: number, row: ITableItemUserInfo) => {
       console.log('index', index)
       console.log('row', row)
     }
 
+    //获得assets文件夹下图片
+    const getAssetsImage = (name: string) => new URL(`/src/assets/${name}.png`, import.meta.url).href
+
+    //数据
     return {
       datas,
       pageTotal,
@@ -147,7 +142,8 @@ export default defineComponent({
       handleSearch,
       handlePageChange,
       handleSizeChange,
-      handleEdit
+      handleEdit,
+      getAssetsImage
     }
   }
 })
