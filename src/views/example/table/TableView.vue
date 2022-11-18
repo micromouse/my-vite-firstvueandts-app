@@ -120,7 +120,6 @@ export default defineComponent({
     const handleSizeChange = (val: number) => {
       query.pageSize = val
       handleSearch()
-      console.log(`${val} items per page`)
     }
 
     //编辑用户信息行
