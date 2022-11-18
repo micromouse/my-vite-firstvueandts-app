@@ -6,19 +6,27 @@
     <el-form-item label="地址">
       <el-input v-model="userInfo.address" />
     </el-form-item>
+    <el-form-item label="状态">
+      <el-select v-model="userInfo.state" placeholder="select">
+        <el-option value="成功" label="成功" />
+        <el-option value="失败" label="失败" />
+      </el-select>
+    </el-form-item>
   </el-form>
 </template>
 <script lang="ts">
 import { IGdialogAdditionProps } from '@/typings/GDialog'
 import { ITableItemUserInfo } from '@/typings/table'
-import { ElForm, ElFormItem, ElInput } from 'element-plus'
+import { ElForm, ElFormItem, ElInput, ElOption, ElSelect } from 'element-plus'
 import { defineComponent, PropType, ref } from 'vue'
 
 export default defineComponent({
   components: {
     ElForm,
     ElFormItem,
-    ElInput
+    ElInput,
+    ElOption,
+    ElSelect
   },
   props: {
     dialogAdditionProps: {

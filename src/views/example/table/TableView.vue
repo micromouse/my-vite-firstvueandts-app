@@ -7,7 +7,7 @@
       </el-select>
       <el-input v-model="query.name" placeholder="用户名" size="default" class="handle-input mr10" />
       <el-button type="primary" :icon="Search" size="default" @click="handleSearch">搜索</el-button>
-      <el-button type="primary" :icon="Plus" size="default">新增</el-button>
+      <el-button type="primary" :icon="Plus" size="default" @click="handleAdd">新增</el-button>
     </div>
     <el-table :data="datas" border class="table" header-cell-class-name="table-header">
       <el-table-column prop="id" label="ID" width="55" align="center" />
@@ -100,7 +100,6 @@ export default defineComponent({
 
     //搜索
     const handleSearch = () => {
-      console.log('query', query)
       globalProperties
         .resolve<AxiosInstance>('$axios')
         .get('/data/table.json')
@@ -125,15 +124,32 @@ export default defineComponent({
     //编辑用户信息行
     const handleEdit = (index: number, row: ITableItemUserInfo) => {
       globalProperties.resolve<IGDialogShow>('$gdialog').show(TableItemView, {
-        title: '用户详细信息',
+        title: '编辑用户',
         footer: {
           showOk: true
         },
         additions: {
-          userInfo: row,
+          userInfo: { ...row },
           updateUserInfo: (userInfo: ITableItemUserInfo) => {
             datas.value[index].name = userInfo.name
             datas.value[index].address = userInfo.address
+            datas.value[index].state = userInfo.state
+          }
+        }
+      })
+    }
+
+    //新增用户信息
+    const handleAdd = () => {
+      globalProperties.resolve<IGDialogShow>('$gdialog').show(TableItemView, {
+        title: '新增用户',
+        footer: {
+          showOk: true
+        },
+        additions: {
+          userInfo: <ITableItemUserInfo>{ state: '失败' },
+          updateUserInfo: (userInfo: ITableItemUserInfo) => {
+            datas.value = datas.value.concat(userInfo)
           }
         }
       })
@@ -155,6 +171,7 @@ export default defineComponent({
       handlePageChange,
       handleSizeChange,
       handleEdit,
+      handleAdd,
       getAssetsImage
     }
   }
