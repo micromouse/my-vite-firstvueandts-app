@@ -13,19 +13,9 @@
 <script lang="ts">
 import { useAppStore } from '@/store/app'
 import { computed, defineComponent } from 'vue'
-import AppMain from './components/AppMain.vue'
-import Sidebar from './components/Sidebar/Sidebar.vue'
-import Navbar from './components/Navbar/Navbar.vue'
-import TagsView from './components/TagsView/TagsView.vue'
 
 export default defineComponent({
   name: 'Layout',
-  components: {
-    AppMain,
-    Sidebar,
-    Navbar,
-    TagsView
-  },
   setup() {
     const appStore = useAppStore()
 

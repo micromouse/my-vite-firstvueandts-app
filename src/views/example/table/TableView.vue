@@ -58,17 +58,6 @@
 </template>
 <script lang="ts">
 import { defineComponent, onMounted, reactive, ref } from 'vue'
-import {
-  ElButton,
-  ElImage,
-  ElInput,
-  ElOption,
-  ElPagination,
-  ElSelect,
-  ElTable,
-  ElTableColumn,
-  ElTag
-} from 'element-plus'
 import { Delete, Edit, Plus, Search } from '@element-plus/icons-vue'
 import useGlobalProperties from '@/hooks/useGlobalProperties'
 import { AxiosInstance } from 'axios'
@@ -77,17 +66,6 @@ import TableItemView from './TableItemView.vue'
 
 //定义TableView组件
 export default defineComponent({
-  components: {
-    ElButton,
-    ElImage,
-    ElInput,
-    ElOption,
-    ElPagination,
-    ElSelect,
-    ElTable,
-    ElTableColumn,
-    ElTag
-  },
   setup() {
     const globalProperties = useGlobalProperties()
     const datas = ref<ITableItemUserInfo[]>([])

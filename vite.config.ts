@@ -1,9 +1,13 @@
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import VueSetupExtend from 'vite-plugin-vue-setup-extend'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
 import eslintPlugin from 'vite-plugin-eslint'
 import path, { resolve } from 'path'
 import fs from 'fs'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -11,6 +15,13 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       vue(),
+      VueSetupExtend(),
+      AutoImport({
+        resolvers: [ElementPlusResolver()]
+      }),
+      Components({
+        resolvers: [ElementPlusResolver()]
+      }),
       eslintPlugin({
         include: ['src/**/*.ts', 'src/**/*.d.ts', 'src/**/*.tsx', 'src/**/*.vue']
       }),

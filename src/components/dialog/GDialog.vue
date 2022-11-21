@@ -24,14 +24,9 @@
 
 <script lang="ts">
 import { Component, defineComponent, PropType, ref, watch } from 'vue'
-import { ElDialog, ElButton } from 'element-plus'
 import { IGDialogCreateOptions } from '@/typings/GDialog'
 
 export default defineComponent({
-  components: {
-    ElDialog,
-    ElButton
-  },
   props: {
     component: {
       type: Object as () => Component,
