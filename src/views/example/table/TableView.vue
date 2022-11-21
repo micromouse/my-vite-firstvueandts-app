@@ -73,7 +73,6 @@ import { Delete, Edit, Plus, Search } from '@element-plus/icons-vue'
 import useGlobalProperties from '@/hooks/useGlobalProperties'
 import { AxiosInstance } from 'axios'
 import { ITableItemUserInfo } from '@/typings/table'
-import { IGDialogShow } from '@/typings/GDialog'
 import TableItemView from './TableItemView.vue'
 
 //定义TableView组件
@@ -123,7 +122,7 @@ export default defineComponent({
 
     //编辑用户信息行
     const handleEdit = (index: number, row: ITableItemUserInfo) => {
-      globalProperties.resolve<IGDialogShow>('$gdialog').show(TableItemView, {
+      globalProperties.resolveGDialog().show(TableItemView, {
         title: '编辑用户',
         footer: {
           showOk: true
@@ -148,7 +147,7 @@ export default defineComponent({
 
     //新增用户信息
     const handleAdd = () => {
-      globalProperties.resolve<IGDialogShow>('$gdialog').show(TableItemView, {
+      globalProperties.resolveGDialog().show(TableItemView, {
         title: '新增用户',
         footer: {
           showOk: true

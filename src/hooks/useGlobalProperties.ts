@@ -1,3 +1,4 @@
+import { IGDialogShow } from '@/typings/GDialog'
 import useCurrentInstance from './useCurrentInstance'
 
 /**
@@ -23,8 +24,15 @@ export default function useGlobalProperties() {
    */
   const resolve = <T>(key: string) => <T>properties[key]
 
+  /**
+   * 获得全局对话框显示
+   * @returns - 全局对话框显示
+   */
+  const resolveGDialog = () => resolve<IGDialogShow>('$gdialog')
+
   //数据
   return {
-    resolve
+    resolve,
+    resolveGDialog
   }
 }

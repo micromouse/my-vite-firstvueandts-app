@@ -53,7 +53,7 @@ export default defineComponent({
 
     //显示对话框1
     const showDialog1 = () => {
-      globalProperties.resolve<IGDialogShow>('$gdialog').show(Dialog1View, {
+      globalProperties.resolveGDialog().show(Dialog1View, {
         title: '这是对话框1标题',
         footer: {
           buttons: Dialog1Buttons
@@ -70,7 +70,7 @@ export default defineComponent({
 
     //显示对话框3
     const showDialog3 = () => {
-      globalProperties.resolve<IGDialogShow>('$gdialog').show(Dialog3View, {
+      globalProperties.resolveGDialog().show(Dialog3View, {
         title: '对话框3的标题'
       })
     }
