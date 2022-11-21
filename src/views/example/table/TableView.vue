@@ -38,7 +38,7 @@
       <el-table-column label="操作" width="220" align="center">
         <template #default="scope">
           <el-button text :icon="Edit" v-on:click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-          <el-button text :icon="Delete" class="red">删除</el-button>
+          <el-button text :icon="Delete" class="red" @click="handleDelete(scope.$index)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -139,6 +139,13 @@ export default defineComponent({
       })
     }
 
+    //删除用户信息行
+    const handleDelete = (index: number) => {
+      if (confirm('是否真的要删除当前行')) {
+        datas.value.splice(index, 1)
+      }
+    }
+
     //新增用户信息
     const handleAdd = () => {
       globalProperties.resolve<IGDialogShow>('$gdialog').show(TableItemView, {
@@ -171,6 +178,7 @@ export default defineComponent({
       handlePageChange,
       handleSizeChange,
       handleEdit,
+      handleDelete,
       handleAdd,
       getAssetsImage
     }
