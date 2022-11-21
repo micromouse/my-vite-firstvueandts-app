@@ -17,7 +17,6 @@ import { ElButton, ElDivider } from 'element-plus'
 import Dialog1View from './Dialog1View.vue'
 import Dialog1Buttons from './Dialog1Buttons.vue'
 import useGlobalProperties from '@/hooks/useGlobalProperties'
-import { IGDialogShow } from '@/typings/GDialog'
 import Dialog3View from './Dialog3View.vue'
 import { useRouter } from 'vue-router'
 
