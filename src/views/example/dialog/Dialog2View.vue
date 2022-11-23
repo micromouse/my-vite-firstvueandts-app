@@ -21,10 +21,11 @@ export default defineComponent({
   setup(props) {
     //处理Ok按钮click事件
     const handleOk = () => {
-      props.dialogAdditionProps.handledOk('已处理了Dialog2View.Ok按钮单击事件')
+      props.dialogAdditionProps.handledOk('我是Dialog2View.handleOk方法')
       console.log('已单击Ok按钮')
+      props.dialogAdditionProps.close()
     }
-    props.dialogAdditionProps.cc('cc')
+
     return {
       handleOk
     }
