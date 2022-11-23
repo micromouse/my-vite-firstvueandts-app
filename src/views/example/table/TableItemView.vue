@@ -17,17 +17,9 @@
 <script lang="ts">
 import { IGdialogAdditionProps } from '@/typings/GDialog'
 import { ITableItemUserInfo } from '@/typings/table'
-import { ElForm, ElFormItem, ElInput, ElOption, ElSelect } from 'element-plus'
 import { defineComponent, PropType, ref } from 'vue'
 
 export default defineComponent({
-  components: {
-    ElForm,
-    ElFormItem,
-    ElInput,
-    ElOption,
-    ElSelect
-  },
   props: {
     dialogAdditionProps: {
       type: Object as PropType<IGdialogAdditionProps>,
