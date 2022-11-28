@@ -172,11 +172,9 @@ export default defineComponent({
 .handle-box {
   margin-bottom: 20px;
 }
-
 .handle-select {
   width: 120px;
 }
-
 .handle-input {
   width: 300px;
 }
@@ -196,7 +194,6 @@ export default defineComponent({
   width: 40px;
   height: 40px;
 }
-
 .pagination {
   margin: 20px 0;
   text-align: right;
