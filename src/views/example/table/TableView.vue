@@ -128,7 +128,8 @@ export default defineComponent({
       globalProperties.resolveGDialog().show(TableItemView, {
         title: '新增用户',
         footer: {
-          showOk: true
+          showOk: true,
+          OkTitle: 'Save'
         },
         additions: {
           userInfo: <ITableItemUserInfo>{ state: '失败' },

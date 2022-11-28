@@ -11,6 +11,8 @@ export interface IGDialogCreateOptions {
     showCancel?: boolean
     //Ok按钮单击事件处理:dialogRef.handleOk()
     showOk?: boolean
+    //Ok按钮标题
+    OkTitle?: string
     buttons?: Component
   }
   additions?: {

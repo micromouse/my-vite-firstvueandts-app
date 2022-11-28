@@ -15,7 +15,9 @@
     <template v-if="options.footer?.showFooter" v-slot:footer>
       <span class="el-dialog__footer">
         <component v-if="options.footer?.buttons" :is="options.footer.buttons" :dialog="dialogRef" />
-        <el-button v-if="options.footer?.showOk" @click="dialogRef.handleOk()" size="default">Ok</el-button>
+        <el-button v-if="options.footer?.showOk" @click="dialogRef.handleOk()" size="default">
+          {{ options.footer.OkTitle }}
+        </el-button>
         <el-button v-if="options.footer?.showCancel" @click="dialogVisible = false" size="default">Cancel</el-button>
       </span>
     </template>

@@ -34,6 +34,7 @@ const Modal = {
         options.id ??= `v3popup_${new Date().getTime()}`
         options.width ??= 600
         options.footer ??= {}
+        options.footer.OkTitle ??= 'Ok'
         options.footer.showFooter ??= true
         options.footer.showCancel ??= true
 
