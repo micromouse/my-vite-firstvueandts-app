@@ -17,7 +17,7 @@
   </div>
 </template>
 <script lang="ts">
-import { useAppStore } from '@/store/app'
+import { useAppStore } from '@/infrustructures/store/app'
 import { ElButton, ElSwitch, ElDatePicker } from 'element-plus'
 import { defineComponent, ref } from 'vue'
 import { useRoute } from 'vue-router'

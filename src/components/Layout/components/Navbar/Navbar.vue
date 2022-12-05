@@ -17,7 +17,7 @@
 </template>
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
-import { useAppStore } from '@/store/app'
+import { useAppStore } from '@/infrustructures/store/app'
 import Hamburger from './Hamburger.vue'
 import BreadCrumb from './BreadCrumb.vue'
 import RightMenu from './RightMenu.vue'

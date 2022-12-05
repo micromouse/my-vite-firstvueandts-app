@@ -1,5 +1,5 @@
 import { ComponentPublicInstance } from 'vue'
-import useErrorHandler from '@/hooks/useErrorHandler'
+import useErrorHandler from '@/infrustructures/hooks/useErrorHandler'
 
 const errorHandler = useErrorHandler()
 
@@ -7,7 +7,8 @@ const errorHandler = useErrorHandler()
  * 使用全局异常处理
  * @param app - app
  */
-export default function install(app) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function install(app: any) {
   /**
    * 指定组件的渲染和观察期间未捕获错误的处理函数。这个处理函数被调用时，可获取错误信息和 Vue 实例。
    * 它可以从下面这些来源中捕获错误：

@@ -59,7 +59,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, reactive, ref } from 'vue'
 import { Delete, Edit, Plus, Search } from '@element-plus/icons-vue'
-import useGlobalProperties from '@/hooks/useGlobalProperties'
+import useGlobalProperties from '@/infrustructures/hooks/useGlobalProperties'
 import { AxiosInstance } from 'axios'
 import { ITableItemUserInfo } from '@/typings/table'
 import TableItemView from './TableItemView.vue'

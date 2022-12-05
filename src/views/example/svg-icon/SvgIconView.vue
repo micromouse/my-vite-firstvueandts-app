@@ -20,8 +20,7 @@
 </template>
 <script lang="ts">
 import { ElInput, ElDivider } from 'element-plus'
-import { computed } from 'vue'
-import { defineComponent, onMounted, ref } from 'vue'
+import { computed, defineComponent, onMounted, ref } from 'vue'
 
 export default defineComponent({
   components: {

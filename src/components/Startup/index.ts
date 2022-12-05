@@ -18,7 +18,7 @@ import GDialog from '@/components/dialog/index'
 import { createPinia } from 'pinia'
 
 //global axios
-import axios from '@/utils/AxiosInstance'
+import axios from '@/infrustructures/utils/AxiosInstance'
 
 //global error
 import globalError from './useGlobalError'

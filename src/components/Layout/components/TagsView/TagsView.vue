@@ -30,10 +30,10 @@
 import { computed, defineComponent, reactive, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { Close } from '@element-plus/icons-vue'
-import { useTagsViewStore } from '@/store/tagsView'
+import { useTagsViewStore } from '@/infrustructures/store/tagsView'
 import { RouteRecordRawExtend } from '@/typings/router'
 import { ITagsContextState } from '@/typings/tags'
-import useTags from '@/hooks/useTags'
+import useTags from '@/infrustructures/hooks/useTags'
 
 export default defineComponent({
   components: {

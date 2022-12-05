@@ -1,9 +1,9 @@
 import { nextTick, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { useTagsViewStore } from '@/store/tagsView'
+import { useTagsViewStore } from '@/infrustructures/store/tagsView'
 import { IRouteItemInfo, RouteRecordRawExtend } from '@/typings/router'
 import { ITagsContextState } from '@/typings/tags'
-import { useRouterStore } from '@/store/router'
+import { useRouterStore } from '@/infrustructures/store/router'
 import useCurrentInstance from './useCurrentInstance'
 
 /**

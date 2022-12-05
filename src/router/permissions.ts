@@ -2,9 +2,9 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import { User } from 'oidc-client-ts'
 import { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
-import { useRouterStore } from '@/store/router'
+import { useRouterStore } from '@/infrustructures/store/router'
 import router, { routes } from './index'
-import AuthenticationService from '@/utils/AuthenticationService'
+import AuthenticationService from '@/infrustructures/utils/AuthenticationService'
 
 // NProgress Configuration
 NProgress.configure({ showSpinner: false })

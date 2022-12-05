@@ -41,7 +41,7 @@
 import { defineComponent, onBeforeMount, ref } from 'vue'
 import { ElDropdown, ElDropdownItem, ElDropdownMenu } from 'element-plus'
 import { CaretBottom } from '@element-plus/icons-vue'
-import AuthenticationService from '@/utils/AuthenticationService'
+import AuthenticationService from '@/infrustructures/utils/AuthenticationService'
 import { useRoute } from 'vue-router'
 
 export default defineComponent({

@@ -2,7 +2,7 @@
   <h2>signin-oidc loading...</h2>
 </template>
 <script lang="ts">
-import AuthenticationService from '@/utils/AuthenticationService'
+import AuthenticationService from '@/infrustructures/utils/AuthenticationService'
 import { defineComponent, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { User } from 'oidc-client-ts'

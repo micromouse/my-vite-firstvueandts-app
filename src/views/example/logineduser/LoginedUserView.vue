@@ -8,7 +8,7 @@
 <script lang="ts">
 import { defineComponent, onBeforeMount, ref } from 'vue'
 import { User } from 'oidc-client-ts'
-import AuthenticationService from '@/utils/AuthenticationService'
+import AuthenticationService from '@/infrustructures/utils/AuthenticationService'
 
 export default defineComponent({
   setup() {

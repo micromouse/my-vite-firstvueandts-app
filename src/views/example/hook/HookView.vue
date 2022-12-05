@@ -15,7 +15,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import { ElButton } from 'element-plus'
-import useHookTest from '@/hooks/useHookTest'
+import useHookTest from '@/infrustructures/hooks/useHookTest'
 
 export default defineComponent({
   components: {

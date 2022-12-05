@@ -11,7 +11,7 @@
 import { defineComponent, ref } from 'vue'
 import { ElButton, ElDivider } from 'element-plus'
 import { AxiosInstance } from 'axios'
-import useGlobalProperties from '@/hooks/useGlobalProperties'
+import useGlobalProperties from '@/infrustructures/hooks/useGlobalProperties'
 import './Mockjs'
 
 export default defineComponent({
