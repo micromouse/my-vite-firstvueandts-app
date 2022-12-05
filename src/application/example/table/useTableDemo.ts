@@ -4,6 +4,10 @@ import { ITableItemUserInfo } from '@/typings/examples/table'
 import { onMounted, reactive, ref } from 'vue'
 import TableItemView from '@/views/example/table/TableItemView.vue'
 
+/**
+ * 使用Table演示业务
+ * @returns - Table演示业务
+ */
 export default function useTableDemo() {
   const globalProperties = useGlobalProperties()
   const datas = ref<ITableItemUserInfo[]>([])
