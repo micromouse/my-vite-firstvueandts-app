@@ -104,6 +104,8 @@ pre {
   color: #262626;
 }
 .info-desc {
+  margin: 15px 0px 10px;
+  font-size: 20px;
   color: #262626;
 }
 </style>
