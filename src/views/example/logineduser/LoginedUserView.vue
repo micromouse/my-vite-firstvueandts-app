@@ -11,9 +11,7 @@
           <div class="info">
             <div class="info-image">
               <el-avatar :src="profilePhoto" :size="100" />
-              <el-link class="info-edit">
-                <i class="el-icon-user-solid"></i>
-              </el-link>
+              <el-link class="info-edit" :icon="CameraFilled" @click="updateProfilePhoto_click" />
             </div>
             <div class="info-name">{{ user?.profile.name }}</div>
             <div class="info-desc">不可能！我的代码怎么可能会有bug！</div>
@@ -35,13 +33,34 @@
 </template>
 <script lang="ts">
 import { defineComponent, onBeforeMount, ref } from 'vue'
+import { CameraFilled } from '@element-plus/icons-vue'
 import { User } from 'oidc-client-ts'
+import useGlobalProperties from '@/infrustructures/hooks/useGlobalProperties'
 import AuthenticationService from '@/infrustructures/utils/AuthenticationService'
+import UpdateProfilePhotoView from './UpdateProfilePhotoView.vue'
+import ProfilePhotoButtons from './ProfilePhotoButtons.vue'
 
 export default defineComponent({
   setup() {
-    let user = ref<User>()
+    const user = ref<User>()
+    const profilePhoto = ref(new URL('/src/assets/logo.png', import.meta.url).href)
+    const globalProperties = useGlobalProperties()
     const authenticationSerivce = new AuthenticationService(window.appConfig?.oidc)
+
+    //更新头像
+    const updateProfilePhoto_click = () => {
+      globalProperties.resolveGDialog().show(UpdateProfilePhotoView, {
+        title: '更新头像',
+        footer: {
+          showCancel: false,
+          buttons: ProfilePhotoButtons
+        },
+        additions: {
+          profilePhoto: profilePhoto.value,
+          setCroppedImage: (image: string) => (profilePhoto.value = image)
+        }
+      })
+    }
 
     //获得登录用户信息
     onBeforeMount(async () => {
@@ -54,7 +73,9 @@ export default defineComponent({
     //数据
     return {
       user,
-      profilePhoto: new URL('/src/assets/logo.png', import.meta.url).href
+      CameraFilled,
+      profilePhoto,
+      updateProfilePhoto_click
     }
   }
 })
@@ -89,10 +110,8 @@ pre {
   background: rgba(0, 0, 0, 0.5);
   opacity: 0;
   transition: opacity 0.3s ease;
-}
-.info-edit i {
-  color: #eee;
   font-size: 25px;
+  color: #eee;
 }
 .info-image:hover .info-edit {
   opacity: 1;

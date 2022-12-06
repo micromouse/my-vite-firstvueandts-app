@@ -26,6 +26,7 @@
     "@types/mockjs": "^1.0.7",
     "@types/node": "^18.11.9",
     "@types/nprogress": "^0.2.0",
+    "@types/vue-cropperjs": "^4.1.2",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
     "@vitejs/plugin-vue": "^3.2.0",
@@ -43,6 +44,7 @@
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-svg-icons": "^2.0.1",
     "vite-plugin-vue-setup-extend": "^0.4.0",
+    "vue-cropperjs": "^5.0.0",
     "vue-eslint-parser": "^9.1.0",
     "vue-tsc": "^1.0.11"
   }
