@@ -16,7 +16,7 @@
               </el-link>
             </div>
             <div class="info-name">{{ user?.profile.name }}</div>
-            <div class="info-desc">不可能！我的代码怎么可能会有bug！</div>
+            <div class="info-name">不可能！我的代码怎么可能会有bug！</div>
           </div>
         </el-card>
       </el-col>
