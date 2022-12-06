@@ -11,7 +11,7 @@
   </div>
 </template>
 <script lang="ts">
-import { useAppStore } from '@/store/app'
+import { useAppStore } from '@/infrustructures/store/app'
 import { computed, defineComponent } from 'vue'
 
 export default defineComponent({

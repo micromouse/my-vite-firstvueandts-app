@@ -11,7 +11,7 @@ import { defineComponent, PropType } from 'vue'
 import { ElButton, ElDivider } from 'element-plus'
 import { IGdialogAdditionProps, IGDialogShow } from '@/typings/GDialog'
 import Dialog2View from './Dialog2View.vue'
-import useGlobalProperties from '@/hooks/useGlobalProperties'
+import useGlobalProperties from '@/infrustructures/hooks/useGlobalProperties'
 
 export default defineComponent({
   props: {

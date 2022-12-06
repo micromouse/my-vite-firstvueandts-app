@@ -4,7 +4,7 @@ import Mock from 'mockjs'
 /**
  * /mocks get请求
  */
-Mock.mock('http://localhost:8080/mocks', 'get', (req: any, res: any) => {
+Mock.mock('https://localhost:8080/mocks', 'get', (req: any, res: any) => {
   return Mock.mock({
     status: 200,
     req,

@@ -23,8 +23,8 @@
 import { computed, defineComponent } from 'vue'
 import { ElScrollbar, ElMenu } from 'element-plus'
 import { useRoute } from 'vue-router'
-import { useAppStore } from '@/store/app'
-import { useRouterStore } from '@/store/router'
+import { useAppStore } from '@/infrustructures/store/app'
+import { useRouterStore } from '@/infrustructures/store/router'
 import Logo from './Logo.vue'
 import SidebarItem from './SidebarItem.vue'
 

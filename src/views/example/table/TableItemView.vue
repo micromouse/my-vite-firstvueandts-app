@@ -16,7 +16,7 @@
 </template>
 <script lang="ts">
 import { IGdialogAdditionProps } from '@/typings/GDialog'
-import { ITableItemUserInfo } from '@/typings/table'
+import { ITableItemUserInfo } from '@/typings/examples/table'
 import { defineComponent, PropType, ref } from 'vue'
 
 export default defineComponent({
