@@ -6,8 +6,8 @@
         <el-option key="2" label="湖南省" value="湖南省" />
       </el-select>
       <el-input v-model="query.name" placeholder="用户名" size="default" class="handle-input mr10" />
-      <el-button type="primary" :icon="Search" size="default" @click="handleSearch">搜索</el-button>
-      <el-button type="primary" :icon="Plus" size="default" @click="handleAdd">新增</el-button>
+      <el-button type="primary" icon="Search" size="default" @click="handleSearch">搜索</el-button>
+      <el-button type="primary" icon="Plus" size="default" @click="handleAdd">新增</el-button>
     </div>
     <el-table :data="datas" border class="table" header-cell-class-name="table-header">
       <el-table-column prop="id" label="ID" width="55" align="center" />
@@ -37,8 +37,8 @@
       <el-table-column prop="date" label="注册时间" />
       <el-table-column label="操作" width="220" align="center">
         <template #default="scope">
-          <el-button text :icon="Edit" v-on:click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-          <el-button text :icon="Delete" class="red" @click="handleDelete(scope.$index)">删除</el-button>
+          <el-button text icon="Edit" v-on:click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button text icon="Delete" class="red" @click="handleDelete(scope.$index)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -58,7 +58,6 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { Delete, Edit, Plus, Search } from '@element-plus/icons-vue'
 import useTableDemo from '@/application/example/table/useTableDemo'
 
 //定义TableView组件
@@ -82,10 +81,6 @@ export default defineComponent({
       datas,
       pageTotal,
       query,
-      Delete,
-      Edit,
-      Search,
-      Plus,
       handleSearch,
       handlePageChange,
       handleSizeChange,

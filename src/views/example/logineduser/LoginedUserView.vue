@@ -51,6 +51,7 @@ export default defineComponent({
     const updateProfilePhoto_click = () => {
       globalProperties.resolveGDialog().show(UpdateProfilePhotoView, {
         title: '更新头像',
+        width: 800,
         footer: {
           showCancel: false,
           buttons: ProfilePhotoButtons

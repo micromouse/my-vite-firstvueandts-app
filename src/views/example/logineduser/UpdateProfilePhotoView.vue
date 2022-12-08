@@ -7,6 +7,19 @@
     :zoom="cropImage"
     :cropmove="cropImage"
   ></vue-cropper>
+  <el-button-group>
+    <el-button icon="plus" size="default" v-on:click.prevent="crop_zoom(0.2)" />
+    <el-button icon="minus" size="default" @click.prevent="crop_zoom(-0.2)" />
+    <el-button icon="arrow-left" size="default" @click.prevent="crop_move(-10, 0)" />
+    <el-button icon="arrow-right" size="default" @click.prevent="crop_move(10, 0)" />
+    <el-button icon="arrow-up" size="default" @click.prevent="crop_move(0, -10)" />
+    <el-button icon="arrow-down" size="default" @click.prevent="crop_move(0, 10)" />
+    <el-button class="flipX" icon="sort" size="default" />
+    <el-button icon="sort" size="default" />
+    <el-button icon="refresh-right" size="default" />
+    <el-button icon="refresh-left" size="default" />
+    <el-button icon="refresh" size="default" @click.prevent="crop_reset()" />
+  </el-button-group>
 </template>
 <script lang="ts">
 import { IGdialogAdditionProps } from '@/typings/GDialog'
@@ -54,6 +67,13 @@ export default defineComponent({
       reader.readAsDataURL(file)
     }
 
+    //缩放被裁剪图片
+    const crop_zoom = (percent: number) => cropper.value.relativeZoom(percent)
+    //移动被裁剪图片
+    const crop_move = (offsetX: number, offsetY: number) => cropper.value.move(offsetX, offsetY)
+    //重置被裁剪图片
+    const crop_reset = () => cropper.value.reset()
+
     //上传并保存图片
     const uploadAndSave_Click = () => {
       props.dialogAdditionProps.setCroppedImage(croppedImage.value)
@@ -68,6 +88,9 @@ export default defineComponent({
       profilePhotoSrc,
       cropImage,
       selectPhoto_click,
+      crop_zoom,
+      crop_move,
+      crop_reset,
       uploadAndSave_Click
     }
   }
@@ -77,5 +100,10 @@ export default defineComponent({
 .cropper {
   width: 100%;
   height: 400px;
+  margin-bottom: 1px;
+}
+
+:deep(.flipX > .el-icon) {
+  transform: rotate(90deg);
 }
 </style>

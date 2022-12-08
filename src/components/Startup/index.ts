@@ -4,8 +4,11 @@ import '@/router/permissions'
 
 //global css,element-plus css,
 import '@/styles/index.scss'
-import 'element-plus/dist/index.css'
 import '@/theme/index.scss'
+
+//element-plus
+import 'element-plus/dist/index.css'
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 //SvgIcon
 import 'virtual:svg-icons-register'
@@ -30,6 +33,9 @@ export default function install(app: any) {
 
   //全局组件
   app.component('svg-icon', SvgIcon)
+  for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+    app.component(key, component)
+  }
 
   //全局插件
   GDialog._context = app._context
