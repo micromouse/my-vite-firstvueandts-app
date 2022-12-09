@@ -16,10 +16,19 @@
     <el-button icon="arrow-down" size="default" @click.prevent="crop_move(0, 10)" />
     <el-button class="flipX" icon="sort" size="default" @click.prevent="crop_flipX()" />
     <el-button icon="sort" size="default" @click.prevent="crop_flipY()" />
-    <el-button icon="refresh-right" size="default" />
-    <el-button icon="refresh-left" size="default" />
+    <el-button icon="refresh-right" size="default" @click.prevent="crop_rotateDegree(90)" />
+    <el-button icon="refresh-left" size="default" @click.prevent="crop_rotateDegree(-90)" />
     <el-button icon="refresh" size="default" @click.prevent="crop_reset()" />
   </el-button-group>
+  <el-slider
+    class="rotateDegree"
+    v-model="rotateDegree"
+    show-input
+    :min="-180"
+    :max="180"
+    :marks="{ '0': '0°', '-180': '-180°', '180': '180°' }"
+    @change="rotateDegree_changed"
+  />
 </template>
 <script lang="ts">
 import { IGdialogAdditionProps } from '@/typings/GDialog'
@@ -27,6 +36,9 @@ import { defineComponent, onBeforeMount, PropType, ref } from 'vue'
 import VueCropper from 'vue-cropperjs'
 import 'cropperjs/dist/cropper.css'
 import CustomError from '@/typings/CustomError'
+import { throttle } from 'lodash'
+import { nextTick } from 'vue'
+import { Arrayable } from 'element-plus/es/utils'
 
 export default defineComponent({
   components: {
@@ -43,6 +55,7 @@ export default defineComponent({
     const cropper = ref<any>()
     const croppedImage = ref('')
     const profilePhotoSrc = ref('')
+    const rotateDegree = ref(0)
     let scaleX = 1
     let scaleY = 1
 
@@ -69,6 +82,20 @@ export default defineComponent({
       reader.readAsDataURL(file)
     }
 
+    //旋转度数已改变处理(大图卡,增加节流功能[lodash.throttle])
+    const rotateDegree_changed = throttle(
+      (n: Arrayable<number>) => {
+        cropper.value.rotateTo(n)
+        nextTick(() => {
+          const { width, height, left, top } = cropper.value.getCanvasData()
+          cropper.value.setCropBoxData({ width, height, left, top })
+          console.log('current rotate:{n},{width},{height},{left},{top}', n, width, height, left, top)
+        })
+      },
+      1000,
+      { trailing: false }
+    )
+
     //缩放被裁剪图片
     const crop_zoom = (percent: number) => cropper.value.relativeZoom(percent)
     //移动被裁剪图片
@@ -83,7 +110,19 @@ export default defineComponent({
       scaleY = -scaleY
       cropper.value.scaleY(scaleY)
     }
+    //旋转指定度数被裁剪图片
+    const crop_rotateDegree = (n: number) => {
+      if (cropper.value) {
+        let currDegree = rotateDegree.value + n
+        if (currDegree > 180 || currDegree < -180) {
+          currDegree = 0
+        }
+        rotateDegree.value = currDegree
 
+        //旋转
+        rotateDegree_changed(rotateDegree.value)
+      }
+    }
     //重置被裁剪图片
     const crop_reset = () => cropper.value.reset()
 
@@ -99,12 +138,15 @@ export default defineComponent({
     return {
       cropper,
       profilePhotoSrc,
+      rotateDegree,
       cropImage,
       selectPhoto_click,
+      rotateDegree_changed,
       crop_zoom,
       crop_move,
       crop_flipX,
       crop_flipY,
+      crop_rotateDegree,
       crop_reset,
       uploadAndSave_Click
     }
@@ -120,5 +162,17 @@ export default defineComponent({
 
 :deep(.flipX > .el-icon) {
   transform: rotate(90deg);
+}
+.rotateDegree.el-slider {
+  width: 551px;
+}
+:deep(.el-slider__runway.show-input) {
+  margin-right: 130px;
+}
+:deep(.el-slider__marks-text:last-child) {
+  width: 36.406px;
+}
+:deep(.el-slider__input) {
+  width: 105px;
 }
 </style>
