@@ -27,7 +27,7 @@
     :min="-180"
     :max="180"
     :marks="{ '0': '0°', '-180': '-180°', '180': '180°' }"
-    @change="rotateDegree_changed"
+    @change="rotateDegree_changed(rotateDegree)"
   />
 </template>
 <script lang="ts">
@@ -84,7 +84,7 @@ export default defineComponent({
 
     //旋转度数已改变处理(大图卡,增加节流功能[lodash.throttle])
     const rotateDegree_changed = throttle(
-      (n: Arrayable<number>) => {
+      (n: number) => {
         cropper.value.rotateTo(n)
         nextTick(() => {
           const { width, height, left, top } = cropper.value.getCanvasData()
