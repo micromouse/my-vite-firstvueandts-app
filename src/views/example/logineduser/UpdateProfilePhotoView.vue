@@ -14,8 +14,8 @@
     <el-button icon="arrow-right" size="default" @click.prevent="crop_move(10, 0)" />
     <el-button icon="arrow-up" size="default" @click.prevent="crop_move(0, -10)" />
     <el-button icon="arrow-down" size="default" @click.prevent="crop_move(0, 10)" />
-    <el-button class="flipX" icon="sort" size="default" />
-    <el-button icon="sort" size="default" />
+    <el-button class="flipX" icon="sort" size="default" @click.prevent="crop_flipX()" />
+    <el-button icon="sort" size="default" @click.prevent="crop_flipY()" />
     <el-button icon="refresh-right" size="default" />
     <el-button icon="refresh-left" size="default" />
     <el-button icon="refresh" size="default" @click.prevent="crop_reset()" />
@@ -43,6 +43,8 @@ export default defineComponent({
     const cropper = ref<any>()
     const croppedImage = ref('')
     const profilePhotoSrc = ref('')
+    let scaleX = 1
+    let scaleY = 1
 
     //获得裁剪后的头像
     const cropImage = () => {
@@ -71,6 +73,17 @@ export default defineComponent({
     const crop_zoom = (percent: number) => cropper.value.relativeZoom(percent)
     //移动被裁剪图片
     const crop_move = (offsetX: number, offsetY: number) => cropper.value.move(offsetX, offsetY)
+    //横向翻转被裁剪图片
+    const crop_flipX = () => {
+      scaleX = -scaleX
+      cropper.value.scaleX(scaleX)
+    }
+    //纵向翻转被裁剪图片
+    const crop_flipY = () => {
+      scaleY = -scaleY
+      cropper.value.scaleY(scaleY)
+    }
+
     //重置被裁剪图片
     const crop_reset = () => cropper.value.reset()
 
@@ -90,6 +103,8 @@ export default defineComponent({
       selectPhoto_click,
       crop_zoom,
       crop_move,
+      crop_flipX,
+      crop_flipY,
       crop_reset,
       uploadAndSave_Click
     }
