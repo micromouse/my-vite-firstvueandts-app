@@ -38,7 +38,6 @@ import 'cropperjs/dist/cropper.css'
 import CustomError from '@/typings/CustomError'
 import { throttle } from 'lodash'
 import { nextTick } from 'vue'
-import { Arrayable } from 'element-plus/es/utils'
 
 export default defineComponent({
   components: {
