@@ -44,7 +44,7 @@
     </el-table>
     <div class="pagination">
       <el-pagination
-        background="background"
+        background
         layout="total, sizes, prev, pager, next, jumper"
         :current-page="query.pageIndex"
         :page-sizes="[1, 2, 5, 10]"
