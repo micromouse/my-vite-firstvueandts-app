@@ -158,11 +158,11 @@ export default defineComponent({
   height: 400px;
   margin-bottom: 1px;
 }
-
 :deep(.flipX > .el-icon) {
   transform: rotate(90deg);
 }
 .rotateDegree.el-slider {
+  margin-top: 10px;
   width: 551px;
 }
 :deep(.el-slider__runway.show-input) {
