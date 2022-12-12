@@ -32,12 +32,11 @@
 </template>
 <script lang="ts">
 import { IGdialogAdditionProps } from '@/typings/GDialog'
-import { defineComponent, onBeforeMount, PropType, ref } from 'vue'
+import { defineComponent, nextTick, onBeforeMount, PropType, ref, watch } from 'vue'
 import VueCropper from 'vue-cropperjs'
 import 'cropperjs/dist/cropper.css'
 import CustomError from '@/typings/CustomError'
 import { throttle } from 'lodash'
-import { nextTick } from 'vue'
 
 export default defineComponent({
   components: {
@@ -117,19 +116,22 @@ export default defineComponent({
           currDegree = 0
         }
         rotateDegree.value = currDegree
-
-        //旋转
-        rotateDegree_changed(rotateDegree.value)
       }
     }
     //重置被裁剪图片
-    const crop_reset = () => cropper.value.reset()
+    const crop_reset = () => {
+      rotateDegree.value = 0
+      cropper.value.reset()
+    }
 
     //上传并保存图片
     const uploadAndSave_Click = () => {
       props.dialogAdditionProps.setCroppedImage(croppedImage.value)
       props.dialogAdditionProps.close()
     }
+
+    ////旋转度数改变，旋转被裁剪图片
+    watch(rotateDegree, (value) => rotateDegree_changed(value))
 
     //onBeforeMount - 获得要设置的源图片
     onBeforeMount(() => (profilePhotoSrc.value = props.dialogAdditionProps.profilePhoto))
