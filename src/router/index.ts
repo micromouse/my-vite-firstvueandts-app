@@ -113,6 +113,12 @@ export const routes: RouteRecordRawExtendCollection = [
         path: 'table',
         component: () => import('@/views/example/table/TableView.vue'),
         meta: { title: 'Table-Demo' }
+      },
+      {
+        name: 'Editor',
+        path: 'editor',
+        component: () => import('@/views/example/EditorView.vue'),
+        meta: { title: 'Editor-Demo' }
       }
     ]
   },
