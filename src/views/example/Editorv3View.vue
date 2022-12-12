@@ -36,7 +36,6 @@ export default defineComponent({
     const globalProperties = useGlobalProperties()
 
     //处理编辑器建立
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleEditorCreated = (editor: IDomEditor | undefined) => {
       // 记录 editor 实例，重要！
       editorRef.value = editor
