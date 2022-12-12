@@ -25,7 +25,7 @@ export interface IRouteItemInfo {
     leaveRmCachePage?: boolean
     closeTabRmCache?: boolean
   }
-  children?: Array<IRouteItemInfo>
+  children?: Array<RouteRecordRawExtend & IRouteItemInfo>
   redirect?: string
 }
 

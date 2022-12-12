@@ -170,6 +170,12 @@ export const routes: RouteRecordRawExtendCollection = [
         meta: { title: 'menu2' }
       }
     ]
+  },
+  {
+    name: '404',
+    path: '/:catchAll(.*)',
+    component: () => import('@/views/404View.vue'),
+    hidden: true
   }
 ]
 
