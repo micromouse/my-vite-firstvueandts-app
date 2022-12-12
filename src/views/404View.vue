@@ -22,6 +22,7 @@ export default defineComponent({
   setup() {
     const router = useRouter()
 
+    //返回前一页
     const goBack = () => router.go(-1)
 
     return {
