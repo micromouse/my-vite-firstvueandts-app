@@ -11,6 +11,7 @@
         :mode="mode"
         @onCreated="handleEditorCreated"
       />
+      <el-button type="primary" size="default" @click="submit_click">提交</el-button>
     </div>
   </div>
 </template>
@@ -30,7 +31,7 @@ export default defineComponent({
   setup() {
     // 编辑器实例，必须用 shallowRef
     const editorRef = shallowRef<IDomEditor | undefined>()
-    const valueHtml = ref('<p>hello</p>')
+    const valueHtml = ref('<p>hello</p><hr />')
     const toolbarConfig = {}
     const editorConfig = { placeholder: '请输入内容...' }
     const globalProperties = useGlobalProperties()
@@ -41,10 +42,15 @@ export default defineComponent({
       editorRef.value = editor
     }
 
+    //单击提交按钮
+    const submit_click = () => {
+      console.log('valueHtml', valueHtml)
+    }
+
     //加载演示数据
     onMounted(async () => {
       var result = await globalProperties.resolve<AxiosInstance>('$axios').get('/data/table.json')
-      valueHtml.value = `<prev>${JSON.stringify(result.data.list)}</prev>`
+      valueHtml.value = `<pre><code class="language-typescript">${JSON.stringify(result.data.list)}</code></pre>`
     })
 
     //释放编辑器
@@ -61,7 +67,8 @@ export default defineComponent({
       toolbarConfig,
       editorConfig,
       mode: 'default',
-      handleEditorCreated
+      handleEditorCreated,
+      submit_click
     }
   }
 })
@@ -69,6 +76,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .container {
   height: 550px;
+  width: 100%;
   border: 1px solid #ccc;
 }
 .boolbar {
