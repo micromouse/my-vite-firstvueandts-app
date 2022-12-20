@@ -2,13 +2,13 @@
   <template v-if="!item.hidden">
     <!--是菜单项-->
     <template v-if="isSidebarItem(item)">
-      <el-menu-item :index="resolvePath(item)">
+      <el-menu-item :index="resolvePath(item)" v-permission="item.meta?.permission">
         <sidebar-item-icon :elIconName="item.meta?.elIconName" :svgIconName="item.meta?.svgIconName" />
         <template v-slot:title>{{ item.meta?.title }}</template>
       </el-menu-item>
     </template>
     <!--有子菜单-->
-    <el-sub-menu v-else :index="resolvePath(item)" popper-append-to-body>
+    <el-sub-menu v-else :index="resolvePath(item)" v-permission="item.meta?.permission" popper-append-to-body>
       <!--<template v-slot:title> 等效于 <template #title>-->
       <template #title>
         <sidebar-item-icon :elIconName="item.meta?.elIconName" :svgIconName="item.meta?.svgIconName" />

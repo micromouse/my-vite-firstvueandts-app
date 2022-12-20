@@ -17,7 +17,7 @@ export interface IRouteItemInfo {
     affix?: boolean
     activeMenu?: string
     breadcrumb?: boolean
-    roles?: Array<string>
+    permission?: string
     elIconName?: string
     svgIconName?: string
     code?: number

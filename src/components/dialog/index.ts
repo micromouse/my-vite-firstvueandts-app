@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import GDialog from './GDialog.vue'
-import { Component, h, render } from 'vue'
+import { AppContext, Component, h, render } from 'vue'
 import { IGDialogCreateOptions } from '@/typings/GDialog'
 
 //建立组件挂载
@@ -43,6 +43,6 @@ const Modal = {
       }
     }
   },
-  _context: null
+  _context: null as unknown as AppContext
 }
 export default Modal

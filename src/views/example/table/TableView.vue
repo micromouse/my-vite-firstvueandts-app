@@ -7,7 +7,9 @@
       </el-select>
       <el-input v-model="query.name" placeholder="用户名" size="default" class="handle-input mr10" />
       <el-button type="primary" icon="Search" size="default" @click="handleSearch">搜索</el-button>
-      <el-button type="primary" icon="Plus" size="default" @click="handleAdd">新增</el-button>
+      <el-button type="primary" icon="Plus" size="default" v-permission="permissionAdd" @click="handleAdd">
+        新增
+      </el-button>
     </div>
     <el-table :data="datas" border class="table" header-cell-class-name="table-header">
       <el-table-column prop="id" label="ID" width="55" align="center" />
@@ -87,7 +89,8 @@ export default defineComponent({
       handleEdit,
       handleDelete,
       handleAdd,
-      getAssetsImage
+      getAssetsImage,
+      permissionAdd: 'table-add'
     }
   }
 })

@@ -53,10 +53,6 @@ export interface ISystemSetting {
    * If you want to also use it in dev, you can pass ['dev', 'test']
    */
   errorLog: string | Array<string>
-  /**
-   * @description permission mode
-   */
-  permissionMode: string
   /*
    * @description table height(100vh-delWindowHeight)
    * */

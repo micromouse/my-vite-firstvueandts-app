@@ -36,7 +36,7 @@ export const routes: RouteRecordRawExtendCollection = [
     component: Layout,
     alwaysShow: true,
     firstMenu: true,
-    meta: { title: 'About Group', elIconName: 'Fold' },
+    meta: { title: 'About Group', elIconName: 'Fold', permission: 'about' },
     children: [
       {
         name: 'about',
@@ -45,7 +45,7 @@ export const routes: RouteRecordRawExtendCollection = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "about" */ '@/views/AboutView.vue'),
-        meta: { title: 'About' },
+        meta: { title: 'About', permission: 'about' },
         props(_route) {
           return {
             id: _route.query.id
@@ -187,6 +187,12 @@ export const routes: RouteRecordRawExtendCollection = [
     name: '404',
     path: '/:catchAll(.*)',
     component: () => import('@/views/404View.vue'),
+    hidden: true
+  },
+  {
+    name: '403',
+    path: '/403',
+    component: () => import('@/views/403View.vue'),
     hidden: true
   }
 ]
