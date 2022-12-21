@@ -6,6 +6,7 @@
         :data="permissions"
         :default-checked-keys="checkedKeys"
         node-key="id"
+        :props="{ children: 'children', label: 'label' }"
         default-expand-all
         show-checkbox
       />
@@ -32,7 +33,7 @@ export default defineComponent({
   setup() {
     const routerStore = useRouterStore()
     const permissions = ref<IPermissionData[]>([])
-    const checkedKeys = ref<string[]>(['nested.menu1', 'nested.menu1.menu1-2'])
+    const checkedKeys = ref(['demo.editorv3', 'nested.menu1.menu1-2'])
     const tree = ref<InstanceType<typeof ElTree>>()
 
     /**
