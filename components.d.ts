@@ -36,6 +36,7 @@ declare module '@vue/runtime-core' {
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTag: typeof import('element-plus/es')['ElTag']
+    ElTree: typeof import('element-plus/es')['ElTree']
     GDialog: typeof import('./src/components/dialog/GDialog.vue')['default']
     Hamburger: typeof import('./src/components/Layout/components/Navbar/Hamburger.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
