@@ -5,8 +5,9 @@
         ref="tree"
         :data="permissions"
         :default-checked-keys="checkedKeys"
-        node-key="id"
         :props="{ children: 'children', label: 'label' }"
+        :check-strictly="true"
+        node-key="id"
         default-expand-all
         show-checkbox
       />
@@ -15,7 +16,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, onBeforeMount, ref } from 'vue'
 import { useRouterStore } from '@/infrustructures/store/router'
 import { RouteRecordRawExtendCollection } from '@/typings/router'
 import { ElTree } from 'element-plus'
@@ -33,7 +34,7 @@ export default defineComponent({
   setup() {
     const routerStore = useRouterStore()
     const permissions = ref<IPermissionData[]>([])
-    const checkedKeys = ref(['demo.editorv3', 'nested.menu1.menu1-2'])
+    const checkedKeys = ref(['demo', 'demo.editorv3', 'nested.menu1.menu1-2'])
     const tree = ref<InstanceType<typeof ElTree>>()
 
     /**
@@ -71,9 +72,9 @@ export default defineComponent({
     }
 
     /**
-     * onMounted - 初始化权限数据
+     * onBeforeMount - 初始化权限数据(onMounted函数default-checked-keys无效)
      */
-    onMounted(() => addPermissionData(routerStore.routes))
+    onBeforeMount(() => addPermissionData(routerStore.routes))
 
     return {
       permissions,
