@@ -184,6 +184,21 @@ export const routes: RouteRecordRawExtendCollection = [
     ]
   },
   {
+    path: '/permission',
+    component: Layout,
+    firstMenu: true,
+    alwaysShow: true,
+    meta: { title: '权限管理', elIconName: 'Key' },
+    children: [
+      {
+        name: 'permission',
+        path: 'index',
+        component: () => import('@/views/permission/SetUserPrimissionView.vue'),
+        meta: { title: '设置用户权限' }
+      }
+    ]
+  },
+  {
     name: '404',
     path: '/:catchAll(.*)',
     component: () => import('@/views/404View.vue'),
