@@ -15,7 +15,8 @@ export default function install(app: App<any>) {
       const route = vm.$route
 
       //根据路由信息获取菜单权限信息,可获取到当前菜单的所有信息
-      if (code == 'table-add') {
+      const userpermissions = localStorage.getItem('userpermissions')?.split(',')
+      if (code && (!userpermissions || userpermissions.indexOf(code) === -1)) {
         el['hidden'] = true
         el.style.display = 'none'
       }

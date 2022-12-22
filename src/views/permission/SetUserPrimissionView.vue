@@ -34,7 +34,7 @@ export default defineComponent({
   setup() {
     const routerStore = useRouterStore()
     const permissions = ref<IPermissionData[]>([])
-    const checkedKeys = ref(['demo', 'demo.editorv3', 'nested.menu1.menu1-2'])
+    const checkedKeys = ref(localStorage.getItem('userpermissions')?.split(',') ?? [])
     const tree = ref<InstanceType<typeof ElTree>>()
 
     /**
@@ -68,7 +68,9 @@ export default defineComponent({
      * 单击保存权限
      */
     const savePermissions_click = () => {
-      console.log('checkedKeys', tree.value?.getCheckedKeys(false))
+      if (tree.value) {
+        window.localStorage.setItem('userpermissions', tree.value.getCheckedKeys(false).toString())
+      }
     }
 
     /**
