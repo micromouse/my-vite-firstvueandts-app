@@ -14,6 +14,7 @@ export interface IRouteItemInfo {
   firstMenu?: boolean
   meta?: {
     title: string
+    hidden?: boolean
     affix?: boolean
     activeMenu?: string
     breadcrumb?: boolean
