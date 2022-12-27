@@ -39,7 +39,9 @@
       <el-table-column prop="date" label="注册时间" />
       <el-table-column label="操作" width="220" align="center">
         <template #default="scope">
-          <el-button text icon="Edit" v-on:click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button text icon="Edit" v-permission="permissionEdit" v-on:click="handleEdit(scope.$index, scope.row)">
+            编辑
+          </el-button>
           <el-button text icon="Delete" class="red" @click="handleDelete(scope.$index)">删除</el-button>
         </template>
       </el-table-column>
@@ -90,7 +92,8 @@ export default defineComponent({
       handleDelete,
       handleAdd,
       getAssetsImage,
-      permissionAdd: 'table-add'
+      permissionAdd: 'table-add',
+      permissionEdit: 'table-edit'
     }
   }
 })

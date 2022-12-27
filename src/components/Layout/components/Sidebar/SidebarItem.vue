@@ -27,7 +27,7 @@
 import path from 'path'
 import { defineComponent, PropType } from 'vue'
 import { ElMenuItem, ElSubMenu } from 'element-plus'
-import { IRouteItemInfo, RouteRecordRawExtend } from '@/typings/router'
+import { RouteRecordRawExtend } from '@/typings/router'
 import SidebarItemIcon from './SidebarItemIcon.vue'
 
 export default defineComponent({
@@ -63,7 +63,8 @@ export default defineComponent({
 
     //当前项是SidebarItem
     const isSidebarItem = (item: RouteRecordRawExtend) => {
-      let childItemCount = item.children?.filter((r: IRouteItemInfo) => !r.hidden)?.length ?? 0
+      const childItemCount =
+        item.children?.filter((r: RouteRecordRawExtend) => !r.hidden && !r.meta?.hidden)?.length ?? 0
       return !item.alwaysShow && childItemCount <= 1
     }
 

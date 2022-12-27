@@ -112,7 +112,19 @@ export const routes: RouteRecordRawExtendCollection = [
         name: 'Table',
         path: 'table',
         component: () => import('@/views/example/table/TableView.vue'),
-        meta: { title: 'Table-Demo', permission: 'demo.table' }
+        meta: { title: 'Table-Demo', permission: 'demo.table' },
+        children: [
+          {
+            path: 'add',
+            component: () => null,
+            meta: { title: 'table-add', permission: 'table-add', hidden: true }
+          },
+          {
+            path: 'edit',
+            component: () => null,
+            meta: { title: 'table-edit', permission: 'table-edit', hidden: true }
+          }
+        ]
       },
       {
         name: 'Editor',
