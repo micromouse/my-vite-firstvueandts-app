@@ -38,8 +38,15 @@ export const useTagsViewStore = defineStore('tagsView', {
     M_InitialAffixTags(routes: RouteRecordRawExtendCollection) {
       this.$patch((state) => {
         state.affixViews = getAffixTags(routes)
+
+        const userpermissions = localStorage.getItem('userpermissions')?.split(',')
         state.affixViews.forEach((view) => {
-          this.M_addTag(view)
+          if (
+            !userpermissions ||
+            (view.meta && view.meta.permission && userpermissions.indexOf(view.meta.permission) !== -1)
+          ) {
+            this.M_addTag(view)
+          }
         })
       })
     },

@@ -59,7 +59,7 @@ const login = async (to: RouteLocationNormalized) => {
 const logined = (_user: User | null, next: NavigationGuardNext) => {
   const routerStore = useRouterStore()
   if (routerStore.routes.length == 0) {
-    routerStore.M_SetRoutes(routes)
+    routerStore.M_SetRoutes(routes.filter((r) => !r.hidden && !r.meta?.hidden))
   }
   next()
 }
