@@ -41,10 +41,7 @@ export const useTagsViewStore = defineStore('tagsView', {
 
         const userpermissions = localStorage.getItem('userpermissions')?.split(',')
         state.affixViews.forEach((view) => {
-          if (
-            !userpermissions ||
-            (view.meta && view.meta.permission && userpermissions.indexOf(view.meta.permission) !== -1)
-          ) {
+          if (view.meta && view.meta.permission && userpermissions?.indexOf(view.meta.permission) !== -1) {
             this.M_addTag(view)
           }
         })
