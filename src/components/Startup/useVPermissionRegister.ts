@@ -15,8 +15,8 @@ export default function install(app: App<any>) {
       */
       const code = binding.value || ''
       if (code != '') {
-        const userpermissions = localStorage.getItem('userpermissions')?.split(',')
-        if (!userpermissions || userpermissions.indexOf(code) === -1) {
+        const userpermissions = localStorage.getItem('userpermissions')?.split(',') ?? []
+        if (userpermissions.indexOf(code) === -1) {
           el['hidden'] = true
           el.style.display = 'none'
         }
