@@ -1,3 +1,3 @@
 <template>
-  <h1>menu2</h1>
+  <el-card>menu2</el-card>
 </template>

@@ -2,9 +2,10 @@
   <div>
     <router-view v-slot="{ Component, route }">
       <div style="padding: 15px">
-        <el-alert :closable="false" title="menu 1-2" type="error">
+        <el-card title="menu 1-2">
+          <h2 style="padding: 20px">Menu 1-2</h2>
           <component :is="Component" :key="route.path" />
-        </el-alert>
+        </el-card>
       </div>
     </router-view>
   </div>
