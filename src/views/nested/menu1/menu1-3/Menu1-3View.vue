@@ -5,13 +5,3 @@
     </el-alert>
   </div>
 </template>
-<script lang="ts">
-import { ElAlert } from 'element-plus'
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  components: {
-    ElAlert
-  }
-})
-</script>
