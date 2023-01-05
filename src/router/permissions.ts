@@ -19,7 +19,7 @@ router.beforeEach(async (to, _from, next) => {
 
   //系统不需要登录,跳过认证
   if (!window.appConfig.settings.isNeedLogin) {
-    logined(null, next)
+    logined(null, to, next)
     return
   }
 
@@ -28,7 +28,7 @@ router.beforeEach(async (to, _from, next) => {
   if (whites.indexOf(to.path) != -1) {
     next()
   } else if (user && !user.expired) {
-    logined(user, next)
+    logined(user, to, next)
   } else {
     await login(to)
   }
@@ -54,12 +54,22 @@ const login = async (to: RouteLocationNormalized) => {
 /**
  * 用户已登录
  * @param _user - 已认证用户
+ * @param to - 下一页
  * @param next - NavigationGuardNext
  */
-const logined = (_user: User | null, next: NavigationGuardNext) => {
+const logined = (_user: User | null, to: RouteLocationNormalized, next: NavigationGuardNext) => {
   const routerStore = useRouterStore()
   if (routerStore.routes.length == 0) {
     routerStore.M_SetRoutes(routes.filter((r) => !r.hidden && !r.meta?.hidden))
   }
+
+  //登录用户不为null，验证页面权限
+  if (_user !== null) {
+    const userpermissions = localStorage.getItem('userpermissions')?.split(',') ?? []
+    if (to.meta && to.meta.permission && userpermissions.indexOf(<string>to.meta.permission) === -1) {
+      next('/403')
+    }
+  }
+
   next()
 }
