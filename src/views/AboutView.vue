@@ -1,12 +1,12 @@
 <template>
-  <div class="about">
-    <h2>
+  <div>
+    <el-card class="title">
       {{ paramsContent }}
       <br />
       {{ id }}
-    </h2>
-    <h1>This is an about page</h1>
-    <el-button>I am elbutton</el-button>
+    </el-card>
+    <el-card class="title">This is an about page</el-card>
+    <el-button size="large" type="danger">I am elbutton</el-button>
     <hr />
     <span>切换侧边栏显示</span>
     <el-switch v-model="appStore.settings.showLeftMenu" />
@@ -39,7 +39,7 @@ export default defineComponent({
     }
   },
   setup() {
-    var selectedTime = ref<Date>()
+    var selectedTime = ref(new Date())
     console.log('route.params.paramsContent', useRoute().params.paramsContent)
     console.log('route.query.id', useRoute().query.id)
     return {
@@ -49,3 +49,8 @@ export default defineComponent({
   }
 })
 </script>
+<style lang="scss" scoped>
+.title {
+  margin: 5px 10px;
+}
+</style>
