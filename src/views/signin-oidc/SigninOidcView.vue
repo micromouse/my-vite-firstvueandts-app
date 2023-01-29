@@ -18,7 +18,7 @@ export default defineComponent({
       try {
         const authenticationService = new AuthenticationService(window.appConfig.oidc)
         user = await authenticationService.signinRedirectCallback()
-        router.replace({ path: sessionStorage.getItem('redirectedUri') ?? '/' })
+        router.replace({ path: sessionStorage.getItem('redirectedUri') ?? '/home' })
         sessionStorage.removeItem('redirectedUri')
       } catch (e) {
         throw new CustomError({ message: 'signinRedirectCallback failure:', innerError: e, data: { user: user } })

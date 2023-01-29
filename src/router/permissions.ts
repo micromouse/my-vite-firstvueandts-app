@@ -18,8 +18,8 @@ router.beforeEach(async (to, _from, next) => {
   NProgress.start()
 
   //系统不需要登录,跳过认证
-  logined(null, to, next)
   if (!window.appConfig.settings.isNeedLogin) {
+    logined(null, to, next)
     return
   }
 

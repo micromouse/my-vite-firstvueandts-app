@@ -12,7 +12,7 @@ export const routes: RouteRecordRawExtendCollection = [
     meta: { title: 'Home', activeMenu: '/', svgIconName: 'table' },
     children: [
       {
-        name: 'home',
+        name: 'index',
         path: 'index',
         component: () => import('@/views/HelloWorldView.vue'),
         props(_route) {
