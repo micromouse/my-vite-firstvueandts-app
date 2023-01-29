@@ -10,7 +10,7 @@ import AuthenticationService from '@/infrustructures/utils/AuthenticationService
 NProgress.configure({ showSpinner: false })
 
 //白名单地址，无须认证就可访问
-const whites: Array<string> = ['/signin-oidc']
+const whites: Array<string> = ['/signin-oidc', '/403']
 let authenticationService: AuthenticationService
 
 //路由拦截开始
@@ -30,7 +30,7 @@ router.beforeEach(async (to, _from, next) => {
   } else if (user && !user.expired) {
     logined(user, to, next)
   } else {
-    await login(to)
+    await login(to, next)
   }
 })
 
@@ -40,7 +40,7 @@ router.afterEach(() => NProgress.done())
 /**
  * 用户未登录,执行登录操作
  */
-const login = async (to: RouteLocationNormalized) => {
+const login = async (to: RouteLocationNormalized, next: NavigationGuardNext) => {
   try {
     if (!sessionStorage.getItem('redirectedUri')) {
       sessionStorage.setItem('redirectedUri', to.path)
@@ -48,6 +48,7 @@ const login = async (to: RouteLocationNormalized) => {
     await authenticationService.login()
   } catch (e) {
     console.log('authentication failure:', e)
+    next('/403')
   }
 }
 
