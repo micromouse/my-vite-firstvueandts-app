@@ -1,17 +1,25 @@
 <template>
-  <el-form-item label="公告内容" prop="content">
-    <el-input v-model="content" size="default" />
-  </el-form-item>
+  <md-editor v-model="state.text" :code-theme="state.codeTheme" :theme="state.theme"></md-editor>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, reactive } from 'vue'
+import MdEditor, { Themes } from 'md-editor-v3'
+import 'md-editor-v3/lib/style.css'
 
 export default defineComponent({
+  components: {
+    MdEditor
+  },
   setup() {
-    const content = ref('请输入公告内容......')
+    const state = reactive({
+      text: '## hello world',
+      theme: <Themes>'dark',
+      previewTheme: 'default',
+      codeTheme: 'github'
+    })
 
     return {
-      content
+      state
     }
   }
 })
