@@ -1,4 +1,5 @@
 import { ISystemSetting } from '@/typings/common'
+import { IAppConfiguration, IOidc } from '@/typings/configuration'
 /**
  * 读取配置文件
  * @param file - 配置文件
