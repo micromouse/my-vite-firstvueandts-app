@@ -25,6 +25,9 @@ async function readConfiguration<T>(file: string, throwError = true): Promise<T 
 export default async function useConfigReader(): Promise<IAppConfiguration> {
   //读环境变量有两种方式[process.env.VITE_BASE_URL/import.meta.env.BASE_URL]
   const settings = await readConfiguration<ISystemSetting>(`${process.env.VITE_BASE_URL}config/settings.json`)
+  if (settings == null) {
+    throw new Error(`未能读取到配置文件[${process.env.VITE_BASE_URL}config/settings.json]内容`)
+  }
   const oidc = await readConfiguration<IOidc>(`${import.meta.env.BASE_URL}config/oidc.json`, settings?.isNeedLogin)
 
   return {

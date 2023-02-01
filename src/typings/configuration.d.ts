@@ -5,7 +5,7 @@ import { ISystemSetting } from './common'
  */
 declare interface IAppConfiguration {
   oidc: IOidc | null
-  settings: ISystemSetting | null
+  settings: ISystemSetting
 }
 
 /**
