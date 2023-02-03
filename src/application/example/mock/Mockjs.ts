@@ -9,6 +9,6 @@ Mock.mock('https://localhost:8080/mocks', 'get', (req: any, res: any) => {
     status: 200,
     req,
     res,
-    data: '请求mock数据成功'
+    data: `请求mock数据成功[${new Date().toLocaleString()}]`
   })
 })
