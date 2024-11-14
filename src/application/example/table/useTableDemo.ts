@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios'
 import useGlobalProperties from '@/infrustructures/hooks/useGlobalProperties'
-import { ITableItemUserInfo } from '@/typings/examples/table'
+import { ITableItemUserInfo, ITableResponseData } from '@/typings/examples/table'
 import { onMounted, reactive, ref } from 'vue'
 import TableItemView from '@/views/example/table/TableItemView.vue'
 
@@ -18,10 +18,15 @@ export default function useTableDemo() {
   const handleSearch = () => {
     globalProperties
       .resolve<AxiosInstance>('$axios')
-      .get('/data/table.json')
+      .get<ITableResponseData>('/data/table.json')
       .then((res) => {
-        datas.value = res.data.list
+        const start = (query.pageIndex - 1) * query.pageSize
+        const end = start + query.pageSize
+        datas.value = res.data.list.slice(start, end)
         pageTotal.value = res.data.pageTotal
+      })
+      .catch((error) => {
+        console.error(error)
       })
   }
 

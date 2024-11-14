@@ -33,3 +33,8 @@ export interface ITableItemUserInfo {
    */
   localThumb: string
 }
+
+export interface ITableResponseData {
+  list: ITableItemUserInfo[]
+  pageTotal: number
+}
