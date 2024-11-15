@@ -38,6 +38,14 @@ export default defineConfig(({ mode }) => {
         path: 'path-browserify'
       }
     },
+    build: {
+      target: 'ESNext'
+    },
+    optimizeDeps: {
+      esbuildOptions: {
+        target: 'ESNext'
+      }
+    },
     server: {
       host: envConfig.VITE_HOST,
       port: parseInt(envConfig.VITE_PORT),

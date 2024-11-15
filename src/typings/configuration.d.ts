@@ -1,10 +1,12 @@
 import { ISystemSetting } from './common'
+import mqtt from 'mqtt'
 
 /**
  * 应用程序配置信息接口
  */
 declare interface IAppConfiguration {
   oidc: IOidc | null
+  mqtt: IMqttConnection | null
   settings: ISystemSetting
 }
 
@@ -60,4 +62,12 @@ declare interface IOidc {
    * 是否加载用户信息
    */
   loadUserInfo: boolean
+}
+
+/**
+ * Mqtt连接设置
+ */
+declare interface IMqttConnection {
+  url: string
+  options: mqtt.IClientOptions
 }

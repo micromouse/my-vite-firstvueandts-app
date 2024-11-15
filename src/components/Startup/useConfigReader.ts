@@ -1,5 +1,5 @@
 import { ISystemSetting } from '@/typings/common'
-import { IAppConfiguration, IOidc } from '@/typings/configuration'
+import { IAppConfiguration, IMqttConnection, IOidc } from '@/typings/configuration'
 /**
  * 读取配置文件
  * @param file - 配置文件
@@ -29,9 +29,11 @@ export default async function useConfigReader(): Promise<IAppConfiguration> {
     throw new Error(`未能读取到配置文件[${process.env.VITE_BASE_URL}config/settings.json]内容`)
   }
   const oidc = await readConfiguration<IOidc>(`${import.meta.env.BASE_URL}config/oidc.json`, settings?.isNeedLogin)
+  const mqttConnection = await readConfiguration<IMqttConnection>(`${import.meta.env.BASE_URL}config/mqtt.json`)
 
   return {
     oidc: oidc,
+    mqtt: mqttConnection,
     settings: settings
   }
 }

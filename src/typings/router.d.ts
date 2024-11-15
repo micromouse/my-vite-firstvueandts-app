@@ -1,3 +1,7 @@
+/** 
+ * .d.ts 文件是 TypeScript 的 声明文件，主要用于为 JavaScript 代码或库 提供类型定义。
+ * 这些文件中的内容不会被编译成 JavaScript，它们只是告诉 TypeScript 编译器在类型检查时应该如何理解某些模块、变量、接口或类型。
+*/
 import { RouteRecordRaw } from 'vue-router'
 
 /**

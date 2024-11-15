@@ -1,0 +1,9 @@
+{
+  "url": "ws://localhost:8001/mqtt",
+  "options": {
+    "clientId": "vue-client",
+    "username": "yxt",
+    "password": "yxtcpkn",
+    "clean": true
+  }
+}
