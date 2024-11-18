@@ -14,7 +14,7 @@ import GDialog from '@/components/dialog/index'
 //global axios
 import axios from '@/infrustructures/utils/AxiosInstance'
 
-import mqttClient from '@/typings/MqttClient'
+import createMqttClient from '@/typings/MqttClient'
 
 //全局组件
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -32,6 +32,5 @@ export default function install(app: App<any>) {
   app.config.globalProperties.$axios = axios
 
   //mqtt客户端
-  mqttClient.Connect(window.appConfig.mqtt.url, window.appConfig.mqtt.options)
-  app.config.globalProperties.$mqttClient = mqttClient
+  app.config.globalProperties.$mqttClient = createMqttClient(window.appConfig.mqtt.url, window.appConfig.mqtt.options)
 }

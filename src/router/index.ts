@@ -143,6 +143,12 @@ export const routes: RouteRecordRawExtendCollection = [
         path: 'markdowneditor',
         component: () => import('@/views/example/editor/MarkdownEditorView.vue'),
         meta: { title: 'MarkdownEditor-Demo', permission: 'demo.markdowneditor' }
+      },
+      {
+        name: 'MqttDemo',
+        path: 'mqttdemo',
+        component: () => import('@/views/example/mqtt/MqttPublishReceiveView.vue'),
+        meta: { title: 'MqttPublishReceive-Demo', permission: 'demo.mqttpublicreceive' }
       }
     ]
   },

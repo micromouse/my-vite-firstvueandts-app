@@ -2,8 +2,9 @@
   "url": "ws://localhost:8001/mqtt",
   "options": {
     "clientId": "vue-client",
-    "username": "yxt",
+    "username": "lyinnertest:yxt",
     "password": "yxtcpkn",
-    "clean": true
+    "clean": true,
+    "reconnectPeriod": 0
   }
 }
