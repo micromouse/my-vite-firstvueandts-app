@@ -8,9 +8,7 @@ import useGlobalProperties from '@/infrustructures/hooks/useGlobalProperties'
 export default defineComponent({
   setup() {
     const globalProperties = useGlobalProperties()
-    const f = (name: string) => '' + name
-
-    const s = f('hello')
+    globalProperties.resolveMqttClient().Subscribe('myTopic')
   }
 })
 </script>

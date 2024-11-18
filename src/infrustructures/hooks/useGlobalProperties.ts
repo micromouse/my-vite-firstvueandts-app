@@ -1,6 +1,6 @@
 import { IGDialogShow } from '@/typings/GDialog'
 import useCurrentInstance from './useCurrentInstance'
-import { MqttClient } from '@/typings/MqttClient'
+import { IMqttClient } from '@/typings/MqttClient'
 
 /**
  * 使用全局属性
@@ -35,7 +35,7 @@ export default function useGlobalProperties() {
    * 获得全局Mqtt客户端实例
    * @returns - 全局Mqtt客户端实例
    */
-  const resolveMqttClient = () => <MqttClient>properties.$mqttClient
+  const resolveMqttClient = () => resolve<IMqttClient>('$mqttClient')
 
   //数据
   return {

@@ -3,7 +3,7 @@ import mqtt from 'mqtt'
 /**
  * Mqtt客户端接口
  */
-interface IMqttClient {
+export interface IMqttClient {
   Client: mqtt.MqttClient | null
   Connect: (url: string, options: mqtt.IClientOptions) => void
   Subscribe: (topic: string) => void
@@ -12,7 +12,7 @@ interface IMqttClient {
 /**
  * Mqtt客户端接口实现
  */
-export class MqttClient implements IMqttClient {
+class MqttClient implements IMqttClient {
   private _url: string
   private _options: mqtt.IClientOptions
 
