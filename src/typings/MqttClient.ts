@@ -4,9 +4,13 @@ import mqtt from 'mqtt'
  * Mqtt客户端接口
  */
 export interface IMqttClient {
+  onConnected?: () => void
+  onSubscribed?: (topic: string) => void
+
   Client: mqtt.MqttClient | null
   Connect: (url: string, options: mqtt.IClientOptions) => void
-  Subscribe: (topic: string) => void
+  Subscribe: (topic: string, handler: (message: string) => void) => void
+  Publish: (topic: string, message: string) => void
 }
 
 /**
@@ -15,6 +19,17 @@ export interface IMqttClient {
 class MqttClient implements IMqttClient {
   private _url: string
   private _options: mqtt.IClientOptions
+  private _handlers: Map<string, (message: string) => void>
+
+  /**
+   * 已连接到qtt broker事件
+   */
+  onConnected?: () => void
+
+  /**
+   * 已订阅主题事件
+   */
+  onSubscribed?: (topic: string) => void
 
   /**
    * mqtt.MqttClient
@@ -29,6 +44,7 @@ class MqttClient implements IMqttClient {
   constructor(url: string, options: mqtt.IClientOptions) {
     this._url = url
     this._options = options
+    this._handlers = new Map()
   }
 
   /**
@@ -39,7 +55,7 @@ class MqttClient implements IMqttClient {
       this.Client = mqtt.connect(this._url, this._options)
 
       //成功连接
-      this.Client.on('connect', () => console.log(`Successfully connected to the MQTT broker.`))
+      this.Client.on('connect', () => this.onConnected?.())
 
       //mqtt错误处理
       this.Client.on('error', (error) => {
@@ -49,7 +65,12 @@ class MqttClient implements IMqttClient {
 
       //处理接收到的消息
       this.Client.on('message', (topic, paylod) => {
-        console.log(`收到来自订阅主题[${topic}]的消息[${paylod.toString()}]`)
+        const handler = this._handlers.get(topic)
+        if (handler) {
+          handler(paylod.toString())
+        } else {
+          throw new Error(`No Handler registered for topic[${topic}],message:[${paylod.toString()}]`)
+        }
       })
     }
   }
@@ -58,10 +79,28 @@ class MqttClient implements IMqttClient {
    * 订阅
    * @param topic - 订阅主题
    */
-  public Subscribe(topic: string) {
+  Subscribe(topic: string, handler: (message: string) => void) {
     this.GetMqttClient()?.subscribe(topic, (err) => {
       if (err) {
         const newError = new Error(`订阅主题[${topic}]时发生异常:${err.message}`)
+        newError.stack += `\nCaused by: ${err.stack}`
+        throw newError
+      }
+
+      this.onSubscribed?.(topic)
+      this._handlers.set(topic, handler)
+    })
+  }
+
+  /**
+   * 发布消息到主题
+   * @param topic - 主题
+   * @param message - 消息
+   */
+  Publish(topic: string, message: string) {
+    this.GetMqttClient()?.publish(topic, message, (err) => {
+      if (err) {
+        const newError = new Error(`发布主题[${topic}]消息[${message}]时发生异常:${err.message}`)
         newError.stack += `\nCaused by: ${err.stack}`
         throw newError
       }
@@ -88,5 +127,10 @@ class MqttClient implements IMqttClient {
  * @returns - mqtt.MqttClient
  */
 export default function createMqttClient(url: string, options: mqtt.IClientOptions) {
-  return new MqttClient(url, options)
+  const mqttClient = new MqttClient(url, options)
+
+  mqttClient.onConnected = () => console.log('connected to mqtt broker')
+  mqttClient.onSubscribed = (topic) => console.log(`subscribed to topic: ${topic}`)
+
+  return mqttClient
 }
