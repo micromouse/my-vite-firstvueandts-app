@@ -4,7 +4,7 @@
       <el-form-item label="订阅主题">
         <el-input v-model="newTopic" placeholder="input a new topic" @keydown.enter="handleAddTopic">
           <template #append>
-            <el-button type="primary" @click="handleAddTopic">新增</el-button>
+            <el-button type="primary" :disabled="!newTopic" @click="handleAddTopic">新增</el-button>
           </template>
         </el-input>
       </el-form-item>
