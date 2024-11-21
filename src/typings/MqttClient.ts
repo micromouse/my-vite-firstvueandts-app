@@ -72,7 +72,7 @@ class MqttClient implements IMqttClient {
             message = JSON.stringify(JSON.parse(message), null, 2)
           } catch {
             //不是json格式消息，原文输出
-            message = this.GetUnicodeToChinese(paylod.toString())
+            message = paylod.toString().toChineseFromUnicode()
           }
           handler(message)
         } else {
@@ -124,12 +124,6 @@ class MqttClient implements IMqttClient {
     }
 
     return this.Client
-  }
-
-  private GetUnicodeToChinese(message: string) {
-    return message.replace(/\\u[\dA-F]{4}/gi, (match) => {
-      return String.fromCharCode(parseInt(match.replace('\\u', ''), 16))
-    })
   }
 }
 

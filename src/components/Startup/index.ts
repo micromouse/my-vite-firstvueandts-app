@@ -1,5 +1,8 @@
 import { App } from 'vue'
 
+//导入String扩展
+import '@/typings/String'
+
 //router
 import router from '@/router/index'
 import '@/router/permissions'
