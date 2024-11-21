@@ -2,21 +2,35 @@
   <div class="container">
     <el-form label-width="100px" size="default">
       <el-form-item label="订阅主题">
-        <el-input v-model="newTopic" placeholder="input a new topic" @keydown.enter="handleAddTopic">
+        <el-input v-model="newTopic" placeholder="input a new topic" @keydown.enter.prevent="handleAddTopic">
           <template #append>
-            <el-button type="primary" :disabled="!newTopic" @click="handleAddTopic">新增</el-button>
+            <el-button type="primary" :disabled="!newTopic" @click="handleAddTopic">订阅</el-button>
           </template>
         </el-input>
       </el-form-item>
       <el-form-item label="已有主题">
         <el-scrollbar max-height="150px" class="topic-list">
           <ul>
-            <li v-for="(topic, index) in topics" :key="index">
+            <li
+              v-for="(topic, index) in topics"
+              :key="index"
+              :class="{ selected: selectedTopicIndex == index }"
+              @click="handleTopicSelect(index)"
+            >
               <span>{{ topic }}</span>
               <el-button type="danger" :icon="Delete" size="small" @click="handleRemoveTopic(index)">删除</el-button>
             </li>
           </ul>
         </el-scrollbar>
+      </el-form-item>
+      <el-form-item label="发布主题消息">
+        <el-input
+          type="textarea"
+          v-model="publishMessage"
+          placeholder="input a new message"
+          @keydown.enter="handlePublishMessage"
+        ></el-input>
+        <el-button type="primary" :disabled="!publishMessage" @click="handlePublishMessage">新增</el-button>
       </el-form-item>
       <el-form-item label="已接收消息">
         <el-scrollbar class="topic-list">
@@ -40,7 +54,17 @@ export default defineComponent({
     const receivedMessages = ref<string[]>([])
     const topics = ref<string[]>([])
     const newTopic = ref<string>('')
+    const publishMessage = ref<string>('')
+    const selectedTopicIndex = ref<number | null>(null)
     const globalProperties = useGlobalProperties()
+
+    /**
+     * 处理主题选择
+     * @param index - 主题索引
+     */
+    const handleTopicSelect = (index: number) => {
+      selectedTopicIndex.value = index
+    }
 
     /**
      * 处理新增主题
@@ -51,16 +75,12 @@ export default defineComponent({
       if (newTopic.value && !topics.value.includes(newTopic.value)) {
         //订阅主题
         globalProperties.resolveMqttClient().Subscribe(newTopic.value, (message) => {
-          const jsonMessage = JSON.parse(message)
-          receivedMessages.value.push(JSON.stringify(jsonMessage, null, 2))
+          receivedMessages.value.push(message)
         })
 
         //添加新主题的主题集合中
         topics.value.push(newTopic.value)
         newTopic.value = ''
-
-        //阻止事件传递
-        evt.preventDefault()
       }
     }
 
@@ -73,13 +93,29 @@ export default defineComponent({
         topics.value.splice(index, 1)
       }
     }
+
+    /**
+     * 发布主题消息
+     */
+    const handlePublishMessage = () => {
+      if (publishMessage.value && selectedTopicIndex.value != null) {
+        const topic = topics.value[selectedTopicIndex.value]
+        globalProperties.resolveMqttClient().Publish(topic, publishMessage.value)
+        console.log(`已在主题[${topic}]发布消息[${publishMessage.value}]`)
+      }
+    }
+
     return {
       Delete,
       receivedMessages,
       topics,
       newTopic,
+      publishMessage,
+      selectedTopicIndex,
+      handleTopicSelect,
       handleAddTopic,
       handleRemoveTopic,
+      handlePublishMessage,
       globalProperties
     }
   }
@@ -105,11 +141,16 @@ export default defineComponent({
 .topic-list ul li {
   padding: 8px;
   display: flex;
+  cursor: pointer;
   justify-content: space-between;
   border-bottom: 1px solid #e0e0e0;
 }
 
 .topic-list li button {
   margin-left: auto;
+}
+
+.topic-list li.selected {
+  background-color: #f0f8ff;
 }
 </style>

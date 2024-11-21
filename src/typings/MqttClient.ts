@@ -67,7 +67,13 @@ class MqttClient implements IMqttClient {
       this.Client.on('message', (topic, paylod) => {
         const handler = this._handlers.get(topic)
         if (handler) {
-          handler(paylod.toString())
+          let message = this.GetUnicodeToChinese(paylod.toString())
+          try {
+            message = JSON.stringify(JSON.parse(message), null, 2)
+          } catch {
+            //不是json格式消息，原文输出
+          }
+          handler(message)
         } else {
           throw new Error(`No Handler registered for topic[${topic}],message:[${paylod.toString()}]`)
         }
@@ -117,6 +123,12 @@ class MqttClient implements IMqttClient {
     }
 
     return this.Client
+  }
+
+  private GetUnicodeToChinese(message: string) {
+    return message.replace(/\\u[\dA-F]{4}/gi, (match) => {
+      return String.fromCharCode(parseInt(match.replace('\\u', ''), 16))
+    })
   }
 }
 
