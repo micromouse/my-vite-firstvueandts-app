@@ -67,11 +67,12 @@ class MqttClient implements IMqttClient {
       this.Client.on('message', (topic, paylod) => {
         const handler = this._handlers.get(topic)
         if (handler) {
-          let message = this.GetUnicodeToChinese(paylod.toString())
+          let message = paylod.toString()
           try {
             message = JSON.stringify(JSON.parse(message), null, 2)
           } catch {
             //不是json格式消息，原文输出
+            message = this.GetUnicodeToChinese(paylod.toString())
           }
           handler(message)
         } else {

@@ -30,10 +30,10 @@
           placeholder="input a new message"
           @keydown.enter="handlePublishMessage"
         ></el-input>
-        <el-button type="primary" :disabled="!publishMessage" @click="handlePublishMessage">新增</el-button>
+        <el-button type="primary" :disabled="!publishMessage" @click="handlePublishMessage">发布</el-button>
       </el-form-item>
       <el-form-item label="已接收消息">
-        <el-scrollbar class="topic-list">
+        <el-scrollbar class="topic-list" max-height="300px">
           <ul>
             <li v-for="(receiveMessage, index) in receivedMessages" :key="index">
               <pre>{{ receiveMessage }}</pre>
