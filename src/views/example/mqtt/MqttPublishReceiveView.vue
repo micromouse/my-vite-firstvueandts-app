@@ -28,7 +28,7 @@
         <el-button type="primary" :disabled="!publishMessage" @click="handlePublishMessage">发布</el-button>
       </el-form-item>
     </el-form>
-    <el-form label-width="100px">
+    <el-form label-width="100px" size="default">
       <el-form-item label="已接收消息">
         <el-scrollbar class="message-list" max-height="500px">
           <ul>
@@ -200,6 +200,11 @@ export default defineComponent({
   margin: 0;
 }
 
+/**
+ * 这些样式生效的前提是它们的父元素设置了 display: flex;。flexbox 布局会使子元素根据 justify-content 的定义来排列：
+ * .message-left 会让消息块在容器内从左边开始对齐。
+ * .message-right 会让消息块在容器内从右边开始对齐。
+ */
 .message-list ul li {
   display: flex;
   margin-bottom: 10px;
@@ -207,7 +212,6 @@ export default defineComponent({
 
 .message-left {
   justify-content: flex-start;
-  text-align: left;
 }
 
 .message-right {
