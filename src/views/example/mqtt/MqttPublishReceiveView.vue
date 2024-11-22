@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <el-form label-width="100px" size="default">
+  <div>
+    <el-form label-width="100px" size="default" class="container">
       <el-form-item label="订阅主题">
         <el-input v-model="newTopic" placeholder="input a new topic" @keydown.enter.prevent="handleAddTopic">
           <template #append>
@@ -24,19 +24,18 @@
         </el-scrollbar>
       </el-form-item>
       <el-form-item label="发布主题消息">
-        <el-input
-          type="textarea"
-          v-model="publishMessage"
-          placeholder="input a new message"
-          @keydown.enter="handlePublishMessage"
-        ></el-input>
+        <el-input type="textarea" v-model="publishMessage" placeholder="input a new message"></el-input>
         <el-button type="primary" :disabled="!publishMessage" @click="handlePublishMessage">发布</el-button>
       </el-form-item>
+    </el-form>
+    <el-form label-width="100px">
       <el-form-item label="已接收消息">
-        <el-scrollbar class="topic-list" max-height="300px">
+        <el-scrollbar class="message-list" max-height="500px">
           <ul>
-            <li v-for="(receiveMessage, index) in receivedMessages" :key="index">
-              <pre>{{ receiveMessage }}</pre>
+            <li v-for="(message, index) in messages" :key="index" :class="getMessageClass(message)">
+              <div class="message-content">
+                <pre>{{ JSON.stringify(message, null, 2) }}</pre>
+              </div>
             </li>
           </ul>
         </el-scrollbar>
@@ -49,9 +48,19 @@ import { defineComponent, ref } from 'vue'
 import useGlobalProperties from '@/infrustructures/hooks/useGlobalProperties'
 import { Delete } from '@element-plus/icons-vue'
 
+/**
+ * 消息信息接口
+ */
+interface IMessage {
+  type: 'received' | 'published'
+  topic: string
+  message: any
+  createTime: Date
+}
+
 export default defineComponent({
   setup() {
-    const receivedMessages = ref<string[]>([])
+    const messages = ref<IMessage[]>([])
     const topics = ref<string[]>([])
     const newTopic = ref<string>('')
     const publishMessage = ref<string>('')
@@ -74,8 +83,13 @@ export default defineComponent({
       //用户输入了值但值不在已有主题列表中，新增主题
       if (newTopic.value && !topics.value.includes(newTopic.value)) {
         //订阅主题
-        globalProperties.resolveMqttClient().Subscribe(newTopic.value, (message) => {
-          receivedMessages.value.push(message)
+        globalProperties.resolveMqttClient().Subscribe(newTopic.value, (topic, message) => {
+          messages.value.push({
+            type: 'received',
+            topic: topic,
+            message: message.toTryJSON(),
+            createTime: new Date()
+          })
         })
 
         //添加新主题的主题集合中
@@ -101,13 +115,29 @@ export default defineComponent({
       if (publishMessage.value && selectedTopicIndex.value != null) {
         const topic = topics.value[selectedTopicIndex.value]
         globalProperties.resolveMqttClient().Publish(topic, publishMessage.value)
-        console.log(`已在主题[${topic}]发布消息[${publishMessage.value}]`)
+
+        //保存已发送消息
+        messages.value.push({
+          type: 'published',
+          topic: topic,
+          message: publishMessage.value,
+          createTime: new Date()
+        })
+        publishMessage.value = ''
       }
+    }
+
+    /**
+     * 获得当前消息显示样式
+     * @param message - 消息
+     */
+    const getMessageClass = (message: IMessage) => {
+      return message.type === 'published' ? 'message-right' : 'message-left'
     }
 
     return {
       Delete,
-      receivedMessages,
+      messages,
       topics,
       newTopic,
       publishMessage,
@@ -116,6 +146,7 @@ export default defineComponent({
       handleAddTopic,
       handleRemoveTopic,
       handlePublishMessage,
+      getMessageClass,
       globalProperties
     }
   }
@@ -152,5 +183,54 @@ export default defineComponent({
 
 .topic-list li.selected {
   background-color: #f0f8ff;
+}
+
+.message-list {
+  width: 800px;
+  padding: 10px;
+  border: 1px solid #eaeaea;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  overflow-y: auto;
+}
+
+.message-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.message-list ul li {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.message-left {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.message-right {
+  justify-content: flex-end;
+}
+
+.message-content {
+  display: inline-block;
+  max-width: 60%;
+  padding: 10px;
+  border-radius: 5px;
+  font-family: monospace; /* 使用等宽字体来显示JSON */
+  white-space: pre-wrap; /* 保留空格和换行 */
+  word-wrap: break-word; /* 长单词自动换行 */
+}
+
+.message-left .message-content {
+  background-color: #f0f0f0; /* 灰色背景用于接收的消息 */
+  color: #333;
+}
+
+.message-right .message-content {
+  background-color: #8ed081; /* 绿色背景用于发布的消息 */
+  color: #fff;
 }
 </style>

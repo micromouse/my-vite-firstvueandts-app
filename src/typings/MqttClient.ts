@@ -9,7 +9,7 @@ export interface IMqttClient {
 
   Client: mqtt.MqttClient | null
   Connect: (url: string, options: mqtt.IClientOptions) => void
-  Subscribe: (topic: string, handler: (message: string) => void) => void
+  Subscribe: (topic: string, handler: (topic: string, message: string) => void) => void
   Publish: (topic: string, message: string) => void
 }
 
@@ -19,7 +19,7 @@ export interface IMqttClient {
 class MqttClient implements IMqttClient {
   private _url: string
   private _options: mqtt.IClientOptions
-  private _handlers: Map<string, (message: string) => void>
+  private _handlers: Map<string, (topic: string, message: string) => void>
 
   /**
    * 已连接到qtt broker事件
@@ -74,7 +74,7 @@ class MqttClient implements IMqttClient {
             //不是json格式消息，原文输出
             message = paylod.toString().toChineseFromUnicode()
           }
-          handler(message)
+          handler(topic, message)
         } else {
           throw new Error(`No Handler registered for topic[${topic}],message:[${paylod.toString()}]`)
         }
@@ -86,7 +86,7 @@ class MqttClient implements IMqttClient {
    * 订阅
    * @param topic - 订阅主题
    */
-  Subscribe(topic: string, handler: (message: string) => void) {
+  Subscribe(topic: string, handler: (topic: string, message: string) => void) {
     this.GetMqttClient()?.subscribe(topic, (err) => {
       if (err) {
         const newError = new Error(`订阅主题[${topic}]时发生异常:${err.message}`)
