@@ -14,5 +14,3 @@ Since TypeScript cannot handle type information for `.vue` imports, they are shi
 2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
 
 You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
-
-open-router apikey = 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
